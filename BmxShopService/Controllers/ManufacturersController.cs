@@ -12,52 +12,47 @@ namespace BmxShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ManufacturersController : ControllerBase
     {
         private readonly ShopContext _context;
 
-        public ProductsController(ShopContext context)
+        public ManufacturersController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Manufacturers
         [HttpGet]
-        public async Task<ActionResult<List<Products>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Manufacturers>>> GetManufacturers()
         {
-            var result = await _context.Products
-                .Include(m => m.manufacturer)
-                .Include(c => c.category)
-                .ToListAsync();
-
-            return result;
+            return await _context.Manufacturers.Include(p => p.products).ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Manufacturers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetProducts(int id)
+        public async Task<ActionResult<Manufacturers>> GetManufacturers(int id)
         {
-            var products = await _context.Products.FindAsync(id);
+            var manufacturers = await _context.Manufacturers.FindAsync(id);
 
-            if (products == null)
+            if (manufacturers == null)
             {
                 return NotFound();
             }
 
-            return products;
+            return manufacturers;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Manufacturers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
+        public async Task<IActionResult> PutManufacturers(int id, Manufacturers manufacturers)
         {
-            if (id != products.id)
+            if (id != manufacturers.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(products).State = EntityState.Modified;
+            _context.Entry(manufacturers).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +60,7 @@ namespace BmxShopService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductsExists(id))
+                if (!ManufacturersExists(id))
                 {
                     return NotFound();
                 }
@@ -78,36 +73,36 @@ namespace BmxShopService.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Manufacturers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Products>> PostProducts(Products products)
+        public async Task<ActionResult<Manufacturers>> PostManufacturers(Manufacturers manufacturers)
         {
-            _context.Products.Add(products);
+            _context.Manufacturers.Add(manufacturers);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProducts", new { id = products.id }, products);
+            return CreatedAtAction("GetManufacturers", new { id = manufacturers.Id }, manufacturers);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Manufacturers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProducts(int id)
+        public async Task<IActionResult> DeleteManufacturers(int id)
         {
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            var manufacturers = await _context.Manufacturers.FindAsync(id);
+            if (manufacturers == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(products);
+            _context.Manufacturers.Remove(manufacturers);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProductsExists(int id)
+        private bool ManufacturersExists(int id)
         {
-            return _context.Products.Any(e => e.id == id);
+            return _context.Manufacturers.Any(e => e.Id == id);
         }
     }
 }

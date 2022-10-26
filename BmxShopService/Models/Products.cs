@@ -11,13 +11,13 @@ namespace BmxShopService.Models
         public string productName { get; set; }
         public string productDescription { get; set; }
         public float productPrice { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public int ManufacturerId { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public int categoryId { get; set; }
-        [Newtonsoft.Json.JsonIgnore]
-        [System.Text.Json.Serialization.JsonIgnore]
         public Manufacturers manufacturer { get; set; }
-        [Newtonsoft.Json.JsonIgnore]
-        [System.Text.Json.Serialization.JsonIgnore]
         public Categories category { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
