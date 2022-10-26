@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.ObjectPool;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,15 +11,19 @@ namespace BmxShopService.Models
         public string productName { get; set; }
         public string productDescription { get; set; }
         public float productPrice { get; set; }
-        public int manufacturerId { get; set; }
-        [NotMapped]
-        public Manufacturers manufacturer { get; set; }
+        public int ManufacturerId { get; set; }
         public int categoryId { get; set; }
-        [NotMapped]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public Manufacturers manufacturer { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public Categories category { get; set; }
-        [NotMapped]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Deliveries> deliveries { get; set; }
-        [NotMapped]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<OrderItems> orderItems { get; set; }
     }
 }

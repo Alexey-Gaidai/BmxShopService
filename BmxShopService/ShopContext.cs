@@ -15,7 +15,6 @@ namespace BmxShopService
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Orders>(b =>
@@ -27,6 +26,7 @@ namespace BmxShopService
             {
                 b.HasKey(d => d.id);
                 b.HasMany(d => d.orderItems);
+                b.HasOne(d => d.manufacturer);
             });
             modelBuilder.Entity<Categories>(b =>
             {
@@ -35,7 +35,7 @@ namespace BmxShopService
             });
             modelBuilder.Entity<Manufacturers>(b =>
             {
-                b.HasKey(d => d.id);
+                b.HasKey(d => d.Id);
                 b.HasMany(d => d.products);
             });
         }

@@ -2,6 +2,7 @@
 using BmxShopService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BmxShopService.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20221026164607_tasss")]
+    partial class tasss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
@@ -55,7 +57,7 @@ namespace BmxShopService.Migrations
 
             modelBuilder.Entity("BmxShopService.Models.Manufacturers", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -63,7 +65,7 @@ namespace BmxShopService.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Manufacturers");
                 });
@@ -120,10 +122,10 @@ namespace BmxShopService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ManufacturerId")
+                    b.Property<int>("categoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("categoryId")
+                    b.Property<int>("manufacturerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("productDescription")
@@ -139,9 +141,9 @@ namespace BmxShopService.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("ManufacturerId");
-
                     b.HasIndex("categoryId");
+
+                    b.HasIndex("manufacturerId");
 
                     b.ToTable("Products");
                 });
@@ -178,15 +180,15 @@ namespace BmxShopService.Migrations
 
             modelBuilder.Entity("BmxShopService.Models.Products", b =>
                 {
-                    b.HasOne("BmxShopService.Models.Manufacturers", "manufacturer")
-                        .WithMany("products")
-                        .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BmxShopService.Models.Categories", "category")
                         .WithMany("products")
                         .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BmxShopService.Models.Manufacturers", "manufacturer")
+                        .WithMany("products")
+                        .HasForeignKey("manufacturerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

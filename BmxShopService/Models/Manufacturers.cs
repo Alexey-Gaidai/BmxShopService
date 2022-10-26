@@ -5,9 +5,8 @@ namespace BmxShopService.Models
 {
     public class Manufacturers
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string manufacturerName { get; set; }
-        [JsonIgnore]
         public ICollection<Products> products { get; set; }
     }
 }

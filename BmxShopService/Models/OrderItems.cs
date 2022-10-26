@@ -11,7 +11,6 @@ namespace BmxShopService.Models
         public int orderId { get; set; }
         public Orders order { get; set; }
         public int productId { get; set; }
-        [NotMapped]
         public Products product  { get; set; }
         public int productCount { get; set; }
     }
