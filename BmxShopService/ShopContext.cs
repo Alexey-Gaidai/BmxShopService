@@ -11,6 +11,7 @@ namespace BmxShopService
         public DbSet<Manufacturers> Manufacturers { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<User> User { get; set; }   
 
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {
