@@ -32,5 +32,26 @@ namespace BmxShopClient.Data
             var weather = JsonConvert.DeserializeObject<List<Weather>>(data);
             return weather;
         }
+        public async Task<List<Products>> getProduct(string tokenKey)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = "/api/Products";
+
+            using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                var result = await client.GetAsync(url);
+                var bytes = await result.Content.ReadAsByteArrayAsync();
+
+                Encoding encoding = Encoding.GetEncoding("utf-8");
+                data = encoding.GetString(bytes, 0, bytes.Length);
+                result.EnsureSuccessStatusCode();
+            }
+
+            var products = JsonConvert.DeserializeObject<List<Products>>(data);
+            return products;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Client.Present
                     admin.Show();
                 } else
                 {
-                    FormUser user = new FormUser(info);
+                    Shop user = new Shop(info);
                     user.Show();
 
                 }

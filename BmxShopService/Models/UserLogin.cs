@@ -7,6 +7,7 @@ namespace BmxShopService.Models
     public class UserLogin
     {
         [System.ComponentModel.DataAnnotations.Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

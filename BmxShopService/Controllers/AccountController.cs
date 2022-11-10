@@ -22,12 +22,28 @@ namespace BmxShopService.Controllers
         };
 
         [HttpPost("/signin")]
-        public async Task<ActionResult<UserLogin>> PostUser(UserLogin user)
+        public async Task<ActionResult<UserLogin>> PostUser(UserClient newUser)
         {
-            _context.UserLogin.Add(user);
+            var user = new User
+            {
+                Email = newUser.Email, 
+                Name = newUser.Name,
+                LastName = newUser.LastName,
+                Phone = newUser.Phone,
+                Address = newUser.Address,
+                
+            };
+            var userLogin = new UserLogin 
+            { 
+                Login = newUser.Email,
+                Password = newUser.Password,
+                Role = newUser.Role,
+            };
+            _context.UserLogin.Add(userLogin);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetManufacturers", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUsers", new { id = user.Id }, user);
         }
 
         [HttpPost("/token")]

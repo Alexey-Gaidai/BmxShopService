@@ -21,7 +21,7 @@ namespace BmxShopService.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

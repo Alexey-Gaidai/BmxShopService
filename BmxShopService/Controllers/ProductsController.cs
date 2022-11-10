@@ -25,10 +25,7 @@ namespace BmxShopService.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Products>>> GetProducts()
         {
-            var result = await _context.Products
-                .Include(m => m.manufacturer)
-                .Include(c => c.category)
-                .ToListAsync();
+            var result = await _context.Products.ToListAsync();
 
             return result;
         }
