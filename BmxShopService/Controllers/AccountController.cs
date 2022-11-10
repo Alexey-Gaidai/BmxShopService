@@ -15,19 +15,19 @@ namespace BmxShopService.Controllers
             _context = context;
         }
         // тестовые данные вместо использования базы данных
-        private List<User> people = new List<User>
+        private List<UserLogin> people = new List<UserLogin>
         {
-            new User {Login="admin@gmail.com", Password="12345", Role = "admin" },
-            new User { Login="qwerty@gmail.com", Password="55555", Role = "user" }
+            new UserLogin {Login="admin@gmail.com", Password="12345", Role = "admin" },
+            new UserLogin { Login="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
         [HttpPost("/signin")]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<UserLogin>> PostUser(UserLogin user)
         {
-            _context.User.Add(user);
+            _context.UserLogin.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetManufacturers", new { id = user.Id }, user);
+            return CreatedAtAction("GetManufacturers", new { id = user.UserId }, user);
         }
 
         [HttpPost("/token")]
@@ -60,7 +60,7 @@ namespace BmxShopService.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            var person = _context.User.Where(u => u.Login == username && u.Password == password).FirstOrDefault();
+            var person = _context.UserLogin.Where(u => u.Login == username && u.Password == password).FirstOrDefault();
             if (person != null)
             {
                 var claims = new List<Claim>

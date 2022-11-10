@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BmxShopService.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20221024171327_test")]
-    partial class test
+    [Migration("20221110034836_testuser")]
+    partial class testuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,7 +57,7 @@ namespace BmxShopService.Migrations
 
             modelBuilder.Entity("BmxShopService.Models.Manufacturers", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -65,7 +65,7 @@ namespace BmxShopService.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Manufacturers");
                 });
@@ -122,10 +122,10 @@ namespace BmxShopService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("categoryId")
+                    b.Property<int>("ManufacturerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("manufacturerId")
+                    b.Property<int>("categoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("productDescription")
@@ -141,11 +141,64 @@ namespace BmxShopService.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("ManufacturerId");
+
                     b.HasIndex("categoryId");
 
-                    b.HasIndex("manufacturerId");
-
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.UserLogin", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserLogin");
                 });
 
             modelBuilder.Entity("BmxShopService.Models.Deliveries", b =>
@@ -180,21 +233,32 @@ namespace BmxShopService.Migrations
 
             modelBuilder.Entity("BmxShopService.Models.Products", b =>
                 {
+                    b.HasOne("BmxShopService.Models.Manufacturers", "manufacturer")
+                        .WithMany("products")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BmxShopService.Models.Categories", "category")
                         .WithMany("products")
                         .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BmxShopService.Models.Manufacturers", "manufacturer")
-                        .WithMany("products")
-                        .HasForeignKey("manufacturerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("category");
 
                     b.Navigation("manufacturer");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.UserLogin", b =>
+                {
+                    b.HasOne("BmxShopService.Models.User", "User")
+                        .WithOne("userLogin")
+                        .HasForeignKey("BmxShopService.Models.UserLogin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BmxShopService.Models.Categories", b =>
@@ -217,6 +281,12 @@ namespace BmxShopService.Migrations
                     b.Navigation("deliveries");
 
                     b.Navigation("orderItems");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.User", b =>
+                {
+                    b.Navigation("userLogin")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

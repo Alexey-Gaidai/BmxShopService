@@ -98,18 +98,15 @@ namespace BmxShopService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("customerAdress")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("customerNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("purchaseDate")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -152,6 +149,36 @@ namespace BmxShopService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.UserLogin", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -164,9 +191,9 @@ namespace BmxShopService.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("UserLogin");
                 });
 
             modelBuilder.Entity("BmxShopService.Models.Deliveries", b =>
@@ -199,6 +226,17 @@ namespace BmxShopService.Migrations
                     b.Navigation("product");
                 });
 
+            modelBuilder.Entity("BmxShopService.Models.Orders", b =>
+                {
+                    b.HasOne("BmxShopService.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BmxShopService.Models.Products", b =>
                 {
                     b.HasOne("BmxShopService.Models.Manufacturers", "manufacturer")
@@ -216,6 +254,17 @@ namespace BmxShopService.Migrations
                     b.Navigation("category");
 
                     b.Navigation("manufacturer");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.UserLogin", b =>
+                {
+                    b.HasOne("BmxShopService.Models.User", "User")
+                        .WithOne("userLogin")
+                        .HasForeignKey("BmxShopService.Models.UserLogin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BmxShopService.Models.Categories", b =>
@@ -238,6 +287,14 @@ namespace BmxShopService.Migrations
                     b.Navigation("deliveries");
 
                     b.Navigation("orderItems");
+                });
+
+            modelBuilder.Entity("BmxShopService.Models.User", b =>
+                {
+                    b.Navigation("Orders");
+
+                    b.Navigation("userLogin")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
