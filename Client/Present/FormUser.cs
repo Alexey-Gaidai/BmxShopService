@@ -80,7 +80,7 @@ namespace Client.Present
                 sum += basketitem.productPrice;
                 ListViewItem item = new ListViewItem("1123");
                 item.SubItems.Add("212");
-                item.SubItems.Add(basketitem.productPrice.ToString());
+                item.SubItems.Add(basketitem.count.ToString());
                 materialListView1.Items.Add(item);
             }
         }

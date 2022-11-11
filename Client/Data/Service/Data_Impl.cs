@@ -55,7 +55,7 @@ namespace Client.Data.Service
             return products;
         }
 
-        public async Task<string> CreateOrder(int orderId, Basket orderItems)
+        public async Task<string> CreateOrder(int userId, string date)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
@@ -64,9 +64,8 @@ namespace Client.Data.Service
 
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("OrderId",  orderId.ToString()),
-                new KeyValuePair<string, string>("ProductId", orderItems.productId.ToString()),
-                new KeyValuePair<string, string>("Count", orderItems.count.ToString()),
+                new KeyValuePair<string, string>("userId",  userId.ToString()),
+                new KeyValuePair<string, string>("date", date),
             });
 
             using (var client = new HttpClient { BaseAddress = baseAddress })
@@ -86,7 +85,7 @@ namespace Client.Data.Service
             return message;
         }
 
-        public Task<string> AddItems(OrderItems items)
+        /*public Task<string> AddItems(OrderItems items)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
@@ -116,7 +115,7 @@ namespace Client.Data.Service
             var order = JsonConvert.DeserializeObject<Order>(data);
 
             return order.Id.ToString();
-        }
+        }*/
         /*public async Task<string> OrderItems(List<Products> products)
 {
    var items = new OrderItems

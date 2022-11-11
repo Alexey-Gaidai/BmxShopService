@@ -90,7 +90,7 @@ namespace BmxShopService.Controllers
             return CreatedAtAction("GetOrder", new { id = order.id }, order);
         }
 
-        [HttpPost("/api/OrderItems")]
+        /*[HttpPost("/api/OrderItems")]
         public async Task<ActionResult<Orders>> PostItems(OrderItemClient newItems)
         {
             var order = new Orders
@@ -102,7 +102,7 @@ namespace BmxShopService.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetOrder", new { id = order.id }, order);
-        }
+        }*/
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
