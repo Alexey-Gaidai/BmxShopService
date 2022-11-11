@@ -1,4 +1,5 @@
-﻿using Client.Data;
+﻿using Client.Data.Service;
+using Client.UseCases;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace Client.Present
 {
     public partial class FormLogin : Form
     {
-        Login_impl login = new Login_impl();
+       UserUseCases login = new UserCases_Impl();
         public FormLogin()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Client.Present
         {
             try
             {
-                var info = await login.SendRequest(textBoxEmail.Text, textBoxPassword.Text);
+                var info = await login.LogIn(textBoxEmail.Text, textBoxPassword.Text);
                 if (info.role == "admin")
                 {
                     FormAdmin admin = new FormAdmin(info);

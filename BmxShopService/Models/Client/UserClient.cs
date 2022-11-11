@@ -1,4 +1,4 @@
-﻿namespace BmxShopService.Models
+﻿namespace BmxShopService.Models.Client
 {
     public class UserClient
     {

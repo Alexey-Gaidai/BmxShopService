@@ -1,5 +1,5 @@
-﻿using BmxShopClient.Data;
-using Client.Data.Models;
+﻿using Client.Data.Models;
+using Client.Data.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ namespace Client.Present
     public partial class FormAdmin : Form
     {
         AuthInfo _AuthInfo;
-        GetData_Impl getdata = new GetData_Impl();
+        Data_Impl getdata = new Data_Impl();
         public FormAdmin()
         {
             InitializeComponent();

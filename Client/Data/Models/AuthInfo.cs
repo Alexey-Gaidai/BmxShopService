@@ -11,5 +11,6 @@ namespace Client.Data.Models
         public string access_token { get; set; }
         public string username { get; set; }
         public string role { get; set; }
+        public string userId { get; set; }
     }
 }

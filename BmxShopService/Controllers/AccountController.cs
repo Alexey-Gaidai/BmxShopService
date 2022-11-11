@@ -1,4 +1,5 @@
 ﻿using BmxShopService.Models;
+using BmxShopService.Models.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -69,9 +70,38 @@ namespace BmxShopService.Controllers
             {
                 access_token = encodedJwt,
                 username = identity.Name,
-                role = identity.Claims.Where(c => c.Type == "Role").Select(c => c.Value).SingleOrDefault()
+                role = identity.Claims.Where(c => c.Type == "Role").Select(c => c.Value).SingleOrDefault(),
+                userId = identity.Claims.Where(c => c.Type == "Id").Select(c => c.Value).SingleOrDefault()
             };
             return Json(response);
+        }
+
+        [HttpPost("/api/Orders")]
+        public async Task<ActionResult<Orders>> PostOrder(OrderClient newOrder)
+        {
+            var order = new Orders
+            {
+                UserId = newOrder.UserId,
+                purchaseDate = newOrder.Date
+            };
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetOrder", new { id = order.id }, order);
+        }
+
+        [HttpPost("/api/OrderItems")]
+        public async Task<ActionResult<Orders>> PostItems(OrderItemClient newItems)
+        {
+            var order = new Orders
+            {
+                UserId = newOrder.UserId,
+                purchaseDate = newOrder.Date
+            };
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetOrder", new { id = order.id }, order);
         }
 
         private ClaimsIdentity GetIdentity(string username, string password)
@@ -83,7 +113,8 @@ namespace BmxShopService.Controllers
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
-                    new Claim("Role", person.Role)
+                    new Claim("Role", person.Role),
+                    new Claim("Id", person.UserId.ToString())
                 };
                 ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
