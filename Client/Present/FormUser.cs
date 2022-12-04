@@ -67,6 +67,8 @@ namespace Client.Present
             if (basketToOrder.Exists(i => i.productId == child.prodData.Id))
             {
                 basketToOrder.Find(i => i.productId == child.prodData.Id).count++;
+                materialListView1.FindItemWithText(basketToOrder.Find(i => i.productId == child.prodData.Id).productId.ToString()).SubItems[2].Text = basketToOrder.Find(i => i.productId == child.prodData.Id).count.ToString();
+                sum += basketToOrder.Find(i => i.productId == child.prodData.Id).productPrice;
             }
             else
             {
@@ -78,8 +80,8 @@ namespace Client.Present
                 };
                 basketToOrder.Add(basketitem);
                 sum += basketitem.productPrice;
-                ListViewItem item = new ListViewItem("1123");
-                item.SubItems.Add("212");
+                ListViewItem item = new ListViewItem(basketitem.productId.ToString());
+                item.SubItems.Add(basketitem.productPrice.ToString());
                 item.SubItems.Add(basketitem.count.ToString());
                 materialListView1.Items.Add(item);
             }

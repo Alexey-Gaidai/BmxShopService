@@ -1,10 +1,13 @@
-﻿using BmxShopService.Models;
+﻿using BmxShopService.Migrations;
+using BmxShopService.Models;
 using BmxShopService.Models.Client;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace BmxShopService.Controllers
 {
@@ -25,6 +28,11 @@ namespace BmxShopService.Controllers
         [HttpPost("/signin")]
         public async Task<ActionResult<UserLogin>> PostUser(UserClient newUser)
         {
+            cryptPassword(newUser.Password, out string hashedPassword, out string salt);
+            if(_context.User.Any(u => u.Email == newUser.Email))
+            {
+                return BadRequest("User already exists");
+            }
             var user = new User
             {
                 Email = newUser.Email, 
@@ -37,7 +45,8 @@ namespace BmxShopService.Controllers
             var userLogin = new UserLogin 
             { 
                 Login = newUser.Email,
-                Password = newUser.Password,
+                Password = hashedPassword,
+                Salt = salt,
                 Role = newUser.Role,
             };
             _context.UserLogin.Add(userLogin);
@@ -106,8 +115,8 @@ namespace BmxShopService.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            var person = _context.UserLogin.Where(u => u.Login == username && u.Password == password).FirstOrDefault();
-            if (person != null)
+            var person = _context.UserLogin.Where(u => u.Login == username).FirstOrDefault();
+            if (person != null && equalsPassword(password, person.Password, person.Salt) == true)
             {
                 var claims = new List<Claim>
                 {
@@ -121,11 +130,27 @@ namespace BmxShopService.Controllers
                     ClaimsIdentity.DefaultRoleClaimType);
                 return claimsIdentity;
             }
-
-            // если пользователя не найдено
             return null;
         }
 
+        private void cryptPassword(string password, out string passwordHash, out string salt)
+        {
+            using(var hmac = new HMACSHA512())
+            {
+                salt = Convert.ToBase64String(hmac.Key);
+                passwordHash = Convert.ToBase64String(
+                    hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))
+                );
+            }
+        }
 
+        private bool equalsPassword(string password, string passwordHash, string passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(Convert.FromBase64String(passwordSalt)))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(Convert.FromBase64String(passwordHash));
+            }
+        }
     }
 }

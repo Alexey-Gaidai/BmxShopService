@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tabPageBasket = new System.Windows.Forms.TabPage();
+            this.materialButtonChekout = new MaterialSkin.Controls.MaterialButton();
             this.materialLabelTotalPrice = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabelTotal = new MaterialSkin.Controls.MaterialLabel();
             this.materialListView1 = new MaterialSkin.Controls.MaterialListView();
@@ -40,7 +41,6 @@
             this.tabPageAccount = new System.Windows.Forms.TabPage();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
-            this.materialButtonChekout = new MaterialSkin.Controls.MaterialButton();
             this.tabPageBasket.SuspendLayout();
             this.tabPageProducts.SuspendLayout();
             this.materialTabControl1.SuspendLayout();
@@ -59,6 +59,26 @@
             this.tabPageBasket.TabIndex = 2;
             this.tabPageBasket.Text = "Basket";
             this.tabPageBasket.UseVisualStyleBackColor = true;
+            // 
+            // materialButtonChekout
+            // 
+            this.materialButtonChekout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButtonChekout.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButtonChekout.Depth = 0;
+            this.materialButtonChekout.HighEmphasis = true;
+            this.materialButtonChekout.Icon = null;
+            this.materialButtonChekout.Location = new System.Drawing.Point(683, 425);
+            this.materialButtonChekout.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButtonChekout.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButtonChekout.Name = "materialButtonChekout";
+            this.materialButtonChekout.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButtonChekout.Size = new System.Drawing.Size(88, 36);
+            this.materialButtonChekout.TabIndex = 3;
+            this.materialButtonChekout.Text = "Chekout";
+            this.materialButtonChekout.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButtonChekout.UseAccentColor = false;
+            this.materialButtonChekout.UseVisualStyleBackColor = true;
+            this.materialButtonChekout.Click += new System.EventHandler(this.materialButtonChekout_Click);
             // 
             // materialLabelTotalPrice
             // 
@@ -134,9 +154,13 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 6);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(839, 458);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(0, 0);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // tabPageAccount
@@ -177,30 +201,12 @@
             this.tabPageOrders.Text = "Orders";
             this.tabPageOrders.UseVisualStyleBackColor = true;
             // 
-            // materialButtonChekout
-            // 
-            this.materialButtonChekout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButtonChekout.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.materialButtonChekout.Depth = 0;
-            this.materialButtonChekout.HighEmphasis = true;
-            this.materialButtonChekout.Icon = null;
-            this.materialButtonChekout.Location = new System.Drawing.Point(683, 425);
-            this.materialButtonChekout.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButtonChekout.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButtonChekout.Name = "materialButtonChekout";
-            this.materialButtonChekout.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButtonChekout.Size = new System.Drawing.Size(158, 36);
-            this.materialButtonChekout.TabIndex = 3;
-            this.materialButtonChekout.Text = "Chekout";
-            this.materialButtonChekout.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButtonChekout.UseAccentColor = false;
-            this.materialButtonChekout.UseVisualStyleBackColor = true;
-            this.materialButtonChekout.Click += new System.EventHandler(this.materialButtonChekout_Click);
-            // 
             // Shop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(868, 571);
             this.Controls.Add(this.materialTabControl1);
             this.DrawerTabControl = this.materialTabControl1;
@@ -210,6 +216,7 @@
             this.tabPageBasket.ResumeLayout(false);
             this.tabPageBasket.PerformLayout();
             this.tabPageProducts.ResumeLayout(false);
+            this.tabPageProducts.PerformLayout();
             this.materialTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -231,5 +238,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabelTotalPrice;
         private TabPage tabPageOrders;
         private MaterialSkin.Controls.MaterialButton materialButtonChekout;
+        private MaterialSkin.Controls.MaterialScrollBar materialScrollBar1;
     }
 }

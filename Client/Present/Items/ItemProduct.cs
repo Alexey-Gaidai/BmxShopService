@@ -21,6 +21,7 @@ namespace Client.Present.Items
         public event EventHandler DataAvailable;
         Products prodToAdd;
         string PName;
+        string imageUrl;
         string Description;
         float Price;
         int Id;
@@ -37,6 +38,7 @@ namespace Client.Present.Items
             this.PName = product.productName;
             this.Description = product.productDescription;
             this.Price = product.productPrice;
+            this.imageUrl = product.imageLink;
             this.Id = product.Id;
             prodToAdd = product;
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace Client.Present.Items
         {
             materialLabelName.Text = PName;
             materialLabelPrice.Text = Price.ToString() + "$";
+            pictureBox1.ImageLocation = imageUrl;
         }
 
         private void materialButtonAddToCard_Click(object sender, EventArgs e)
