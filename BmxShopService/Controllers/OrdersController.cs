@@ -24,9 +24,9 @@ namespace BmxShopService.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Orders>>> GetUserOrders(int userId)
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders.Where(o => o.UserId == userId).ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -95,11 +95,13 @@ namespace BmxShopService.Controllers
         public async Task<IActionResult> DeleteOrders(int id)
         {
             var orders = await _context.Orders.FindAsync(id);
+            var orderItems = _context.OrderItems.Where(oi => oi.orderId == id).FirstOrDefault();
             if (orders == null)
             {
                 return NotFound();
             }
 
+            _context.OrderItems.RemoveRange(orderItems);
             _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 

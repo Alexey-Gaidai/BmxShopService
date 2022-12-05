@@ -7,6 +7,7 @@ namespace BmxShopService.Models
     {
         public int id { get; set; }
         public int UserId { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
         public string purchaseDate { get; set; }
         [JsonIgnore]

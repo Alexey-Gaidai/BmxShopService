@@ -86,7 +86,7 @@ namespace BmxShopService.Controllers
         }
 
         [HttpPost("/api/Orders")]
-        public async Task<ActionResult<Orders>> PostOrder(OrderClient newOrder)
+        public async Task<ActionResult<string>> PostOrder(OrderClient newOrder)
         {
             var order = new Orders
             {
@@ -95,8 +95,9 @@ namespace BmxShopService.Controllers
             };
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+            
 
-            return CreatedAtAction("GetOrder", new { id = order.id }, order);
+            return order.id.ToString();
         }
 
         /*[HttpPost("/api/OrderItems")]

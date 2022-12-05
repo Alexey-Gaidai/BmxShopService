@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BmxShopService;
 using BmxShopService.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Drawing;
 
 namespace BmxShopService.Controllers
 {
@@ -21,20 +23,39 @@ namespace BmxShopService.Controllers
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Products/
+        /*
         [HttpGet]
         public async Task<ActionResult<List<Products>>> GetProducts()
         {
             var result = await _context.Products.ToListAsync();
 
             return result;
+        }*/
+
+        [HttpGet]
+        public async Task<ActionResult<List<Products>>> GetProducts()
+        {
+            var products = await _context.Products.ToListAsync();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return products;
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetProducts(int id)
+        [HttpGet("{find}")]
+        public async Task<ActionResult<List<Products>>> GetProducts(string find)
         {
-            var products = await _context.Products.FindAsync(id);
+            find.ToLower();
+            var products = await _context.Products.Where(
+                p => p.productName.ToLower().Contains(find) || 
+                p.manufacturer.manufacturerName.ToLower().Contains(find) || 
+                p.category.categoryName.ToLower().Contains(find)
+            ).ToListAsync();
 
             if (products == null)
             {

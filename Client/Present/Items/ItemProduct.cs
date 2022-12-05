@@ -20,11 +20,6 @@ namespace Client.Present.Items
         }
         public event EventHandler DataAvailable;
         Products prodToAdd;
-        string PName;
-        string imageUrl;
-        string Description;
-        float Price;
-        int Id;
         protected virtual void OnDataAvailable(EventArgs e)
         {
             EventHandler eh = DataAvailable;
@@ -35,25 +30,27 @@ namespace Client.Present.Items
         }
         public ItemProduct(Products product)
         {
-            this.PName = product.productName;
-            this.Description = product.productDescription;
-            this.Price = product.productPrice;
-            this.imageUrl = product.imageLink;
-            this.Id = product.Id;
             prodToAdd = product;
             InitializeComponent();
         }
 
         private void ItemProduct_Load(object sender, EventArgs e)
         {
-            materialLabelName.Text = PName;
-            materialLabelPrice.Text = Price.ToString() + "$";
-            pictureBox1.ImageLocation = imageUrl;
+            materialLabelName.Text = prodData.productName;
+            materialLabelPrice.Text = prodData.productPrice.ToString() + "$";
+            pictureBox1.ImageLocation = prodData.imageLink;
+            materialButtonAddToCard.BackColor = Color.FromArgb(129, 135, 109);
         }
 
         private void materialButtonAddToCard_Click(object sender, EventArgs e)
         {
             OnDataAvailable(null);
+            MessageBox.Show("Добавлено в козину!");
+        }
+
+        private void materialButtonAddToCard_MouseEnter(object sender, EventArgs e)
+        {
+
         }
     }
 }

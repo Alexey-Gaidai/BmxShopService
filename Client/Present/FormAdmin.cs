@@ -31,10 +31,10 @@ namespace Client.Present
         {
             labelRole.Text = _AuthInfo.role;
             labelUsername.Text = _AuthInfo.username;
-            setData();
+            //setData();
         }
 
-        private async void setData()
+        /*private async void setData()
         {
             var data = await getdata.getData(_AuthInfo.access_token);
             foreach (var item in data)
@@ -44,6 +44,6 @@ namespace Client.Present
                 listView1.Items.Add(weatherItem);
                 
             }
-        }
+        }*/
     }
 }
