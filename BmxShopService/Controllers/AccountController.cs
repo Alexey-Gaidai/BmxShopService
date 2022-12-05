@@ -18,12 +18,6 @@ namespace BmxShopService.Controllers
         {
             _context = context;
         }
-        // тестовые данные вместо использования базы данных
-        private List<UserLogin> people = new List<UserLogin>
-        {
-            new UserLogin {Login="admin@gmail.com", Password="12345", Role = "admin" },
-            new UserLogin { Login="qwerty@gmail.com", Password="55555", Role = "user" }
-        };
 
         [HttpPost("/signin")]
         public async Task<ActionResult<UserLogin>> PostUser(UserClient newUser)
@@ -71,10 +65,9 @@ namespace BmxShopService.Controllers
                     audience: AuthOptions.AUDIENCE,
                     notBefore: now,
                     claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    expires: now.Add(TimeSpan.FromSeconds(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
             var response = new
             {
                 access_token = encodedJwt,

@@ -9,6 +9,15 @@ using BmxShopService;
 using BmxShopService.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using NuGet.Common;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net;
 
 namespace BmxShopService.Controllers
 {
@@ -34,6 +43,7 @@ namespace BmxShopService.Controllers
         }*/
 
         [HttpGet]
+        [Authorize(Roles = "user")]
         public async Task<ActionResult<List<Products>>> GetProducts()
         {
             var products = await _context.Products.ToListAsync();
@@ -48,6 +58,7 @@ namespace BmxShopService.Controllers
 
         // GET: api/Products/5
         [HttpGet("{find}")]
+        [Authorize(Roles = "user")]
         public async Task<ActionResult<List<Products>>> GetProducts(string find)
         {
             find.ToLower();
@@ -61,8 +72,31 @@ namespace BmxShopService.Controllers
             {
                 return NotFound();
             }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var key = Encoding.ASCII.GetBytes(AuthOptions.KEY);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken); ;
 
-            return products;
+                var jwtToken = (JwtSecurityToken)validatedToken;
+
+                // return user id from JWT token if validation successful
+                return products;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"ex: {ex.Message}");
+                return StatusCode((int)HttpStatusCode.Forbidden, "Время сеанса вышло. Зайдите в аккаунт заново.");
+            }
         }
 
         // PUT: api/Products/5

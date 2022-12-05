@@ -284,6 +284,7 @@
             this.materialFloatingActionButton2.Size = new System.Drawing.Size(56, 56);
             this.materialFloatingActionButton2.TabIndex = 2;
             this.materialFloatingActionButton2.UseVisualStyleBackColor = true;
+            this.materialFloatingActionButton2.Click += new System.EventHandler(this.materialFloatingActionButton2_Click);
             // 
             // flowLayoutPanel2
             // 

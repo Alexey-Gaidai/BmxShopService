@@ -4,7 +4,7 @@ using MaterialSkin.Controls;
 using Client.Data.Service;
 using Client.UseCases;
 using Client.Present.Items;
-using System.Windows.Forms;
+using Application = System.Windows.Forms.Application;
 
 namespace Client.Present
 {
@@ -106,14 +106,30 @@ namespace Client.Present
 
         private async void setData()
         {
-            flowLayoutPanel1.Controls.Clear();
-            var data = await getData.GetProduct(_AuthInfo.access_token, materialTextBox21.Text);
-            products = data;
-            foreach (var item in data)
+            try
             {
-                ItemProduct it = new ItemProduct(item);
-                it.DataAvailable += new EventHandler(child_DataAvailable);
-                flowLayoutPanel1.Controls.Add(it);
+                flowLayoutPanel1.Controls.Clear();
+                var data = await getData.GetProduct<List<Products>>(_AuthInfo.access_token, materialTextBox21.Text);
+                products = data;
+                if(data!=null)
+                {
+                    foreach (var item in data)
+                    {
+                        ItemProduct it = new ItemProduct(item);
+                        it.DataAvailable += new EventHandler(child_DataAvailable);
+                        flowLayoutPanel1.Controls.Add(it);
+                    }
+                }
+                else
+                {
+                    var t = new Thread(() => Application.Run(new FormLogin()));
+                    t.Start();
+                    this.Close();
+                }
+            }
+            catch
+            {
+               
             }
         }
 
@@ -128,14 +144,12 @@ namespace Client.Present
                 order.OrderDelete += new EventHandler(child_DeleteClicked);
                 flowLayoutPanel2.Controls.Add(order);
             }
-            MessageBox.Show(flowLayoutPanel2.Controls.Count.ToString());
         }
 
         private async void materialButtonChekout_Click(object sender, EventArgs e)
         {
             DateTime date = DateTime.Now;
             var checkout = await getData.CreateOrder(Convert.ToInt32(_AuthInfo.userId), date.ToString());
-            MessageBox.Show(checkout);
             var items = await getData.AddOrderItems(itemsToArray(checkout));
         }
 
@@ -167,6 +181,11 @@ namespace Client.Present
                 MessageBox.Show("У вас нет доступа!");
                 materialTabControl1.SelectedTab = tabPageProducts;
             }
+        }
+
+        private void materialFloatingActionButton2_Click(object sender, EventArgs e)
+        {
+            setOrders();
         }
     }
 }
