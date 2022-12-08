@@ -40,11 +40,11 @@ namespace Client.Data.Service
             Console.WriteLine(authInfo.access_token);
             return authInfo;
         }
-        public async Task<string> SignIn(string Name, string Lastname, string Email, string Phone, string Address, string Password)
+        public async Task<string> SignUp(string Name, string Lastname, string Email, string Phone, string Address, string Password)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
-            string url = "/signin";
+            string url = "/signup";
             string message = "";
 
             var content = new FormUrlEncodedContent(new[]
@@ -72,8 +72,6 @@ namespace Client.Data.Service
                 }
             }
             return message;
-        }
-
-        
+        }        
     }
 }

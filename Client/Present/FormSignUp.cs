@@ -2,22 +2,12 @@
 using Client.UseCases;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Client.Present
 {
-    public partial class FormLogin : MaterialForm
+    public partial class FormSignUp : MaterialForm
     {
-       UserUseCases login = new UserCases_Impl();
+        UserUseCases SignUp = new UserCases_Impl();
         Dictionary<string, Color> colors = new Dictionary<string, Color>()
             {
                 { "dark", Color.FromArgb(51, 54, 41) },
@@ -26,10 +16,10 @@ namespace Client.Present
                 { "light", Color.FromArgb(181, 187, 164)},
                 { "very-light", Color.FromArgb(226, 230, 215) },
             };
-        public FormLogin()
+        public FormSignUp()
         {
-            InitMaterialSkin();
             InitializeComponent();
+            InitMaterialSkin();
         }
         private void InitMaterialSkin()
         {
@@ -41,25 +31,31 @@ namespace Client.Present
             );
         }
 
-        private async void buttonLogin_Click(object sender, EventArgs e)
+        private async void materialButtonSignUp_Click(object sender, EventArgs e)
         {
+            string result = "";
             try
             {
-                var info = await login.LogIn(materialTextBoxLogin.Text, materialTextBoxPassword.Text);
-                Shop user = new Shop(info);
-                user.Show();
-                this.Hide();
-
+                result = await SignUp.SignUp(materialTextBoxName.Text, materialTextBoxLastname.Text, materialTextBoxEmail.Text, materialTextBoxPhone.Text, materialTextBoxAddress.Text, materialTextBoxPassword.Text);
+                if (MessageBox.Show(result) == DialogResult.OK)
+                {
+                    this.Close();
+                }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(Text, ex.Message);
+                MaterialMessageBox.Show(ex.ToString());
             }
         }
-        private void materialLabelSignUp_Click(object sender, EventArgs e)
+
+
+        private void materialTextBoxRepeatPassword_Click(object sender, EventArgs e)
         {
-            FormSignUp signIn = new FormSignUp();
-            signIn.Show();
+        }
+
+        private void materialTextBoxRepeatPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

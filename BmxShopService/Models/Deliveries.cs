@@ -10,7 +10,7 @@ namespace BmxShopService.Models
         public int productsId { get; set; }
         [JsonIgnore]
         public Products products { get; set; }  
-        public int deliveryDate { get; set; }
+        public string deliveryDate { get; set; }
         public int productCount { get; set; }
     }
 }

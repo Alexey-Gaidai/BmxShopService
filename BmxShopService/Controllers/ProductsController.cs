@@ -25,6 +25,7 @@ namespace BmxShopService.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         private readonly ShopContext _context;
 
         public ProductsController(ShopContext context)
@@ -32,18 +33,8 @@ namespace BmxShopService.Controllers
             _context = context;
         }
 
-        // GET: api/Products/
-        /*
         [HttpGet]
-        public async Task<ActionResult<List<Products>>> GetProducts()
-        {
-            var result = await _context.Products.ToListAsync();
-
-            return result;
-        }*/
-
-        [HttpGet]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public async Task<ActionResult<List<Products>>> GetProducts()
         {
             var products = await _context.Products.ToListAsync();
@@ -58,12 +49,14 @@ namespace BmxShopService.Controllers
 
         // GET: api/Products/5
         [HttpGet("{find}")]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public async Task<ActionResult<List<Products>>> GetProducts(string find)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             find.ToLower();
-            var products = await _context.Products.Where(
-                p => p.productName.ToLower().Contains(find) || 
+
+            var products = await _context.Products.Where(p => 
+                p.productName.ToLower().Contains(find) || 
                 p.manufacturer.manufacturerName.ToLower().Contains(find) || 
                 p.category.categoryName.ToLower().Contains(find)
             ).ToListAsync();
@@ -72,36 +65,17 @@ namespace BmxShopService.Controllers
             {
                 return NotFound();
             }
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var key = Encoding.ASCII.GetBytes(AuthOptions.KEY);
-            try
+            if (Validation(token) != true)
             {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken); ;
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-
-                // return user id from JWT token if validation successful
-                return products;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"ex: {ex.Message}");
                 return StatusCode((int)HttpStatusCode.Forbidden, "Время сеанса вышло. Зайдите в аккаунт заново.");
             }
+            return products;
         }
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutProducts(int id, Products products)
         {
             if (id != products.id)
@@ -133,6 +107,7 @@ namespace BmxShopService.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
             _context.Products.Add(products);
@@ -143,6 +118,7 @@ namespace BmxShopService.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProducts(int id)
         {
             var products = await _context.Products.FindAsync(id);
@@ -160,6 +136,29 @@ namespace BmxShopService.Controllers
         private bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.id == id);
+        }
+        private bool Validation(string? token)
+        {
+            try
+            {
+                var key = Encoding.ASCII.GetBytes(AuthOptions.KEY);
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

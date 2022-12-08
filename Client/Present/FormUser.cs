@@ -5,6 +5,8 @@ using Client.Data.Service;
 using Client.UseCases;
 using Client.Present.Items;
 using Application = System.Windows.Forms.Application;
+using Newtonsoft.Json.Linq;
+using System.Windows.Forms;
 
 namespace Client.Present
 {
@@ -14,6 +16,7 @@ namespace Client.Present
 
         private List<Basket> basketToOrder = new List<Basket>();
         public List<Products> products = new List<Products>();
+        private List<Supplies> supplies = new List<Supplies>();
         AuthInfo _AuthInfo;
         
         private float sum = 0;
@@ -33,19 +36,18 @@ namespace Client.Present
         public Shop(AuthInfo authInfo)
         {
             _AuthInfo = authInfo;
+            InitMaterialSkin();
             InitializeComponent();
+        }
+
+        private void InitMaterialSkin()
+        {
             MaterialSkinManager skinManager = MaterialSkinManager.Instance;
             skinManager.AddFormToManage(this);
             skinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             skinManager.ColorScheme = new ColorScheme(
                colors["dark-low"], colors["dark"], colors["light"], colors["medium"], TextShade.WHITE
             );
-            InitMaterialSkin();
-        }
-
-        private void InitMaterialSkin()
-        {
-            
         }
 
         private void FormUser_Load(object sender, EventArgs e)
@@ -181,11 +183,54 @@ namespace Client.Present
                 MessageBox.Show("У вас нет доступа!");
                 materialTabControl1.SelectedTab = tabPageProducts;
             }
+            setSupplies();
         }
 
         private void materialFloatingActionButton2_Click(object sender, EventArgs e)
         {
             setOrders();
+        }
+
+
+        private void materialButtonSuppliesApply_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private async void setSupplies()
+        {
+            var data = await getData.GetSupplies<List<Supplies>>(_AuthInfo.access_token);
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                dataGridViewSupplies.Rows.Add();
+                dataGridViewSupplies.Rows[i].Cells["columnId"].Value = data[i].id;
+                dataGridViewSupplies.Rows[i].Cells["ColumnProductId"].Value = data[i].productsId;
+                dataGridViewSupplies.Rows[i].Cells["columnDate"].Value = data[i].deliveryDate;
+                dataGridViewSupplies.Rows[i].Cells["columnCount"].Value = data[i].productCount;
+            }
+        }
+
+        private async void dataGridViewSupplies_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 4 && e.RowIndex > -1 && dataGridViewSupplies.Rows[e.RowIndex].Cells["columnId"].Value != null)
+            {
+                try 
+                {
+                    var edited = new Supplies
+                    {
+                        id = Convert.ToInt32(dataGridViewSupplies.Rows[e.RowIndex].Cells["columnId"].Value),
+                        productsId = Convert.ToInt32(dataGridViewSupplies.Rows[e.RowIndex].Cells["ColumnProductId"].Value),
+                        deliveryDate = dataGridViewSupplies.Rows[e.RowIndex].Cells["columnDate"].Value.ToString(),
+                        productCount = Convert.ToInt32(dataGridViewSupplies.Rows[e.RowIndex].Cells["columnCount"].Value),
+                    };
+                    var result = await getData.UpdateSupplies(_AuthInfo.access_token, edited);
+                    MessageBox.Show(result);
+                }
+                catch
+                {
+                    MessageBox.Show("что то пошло не так");
+                }
+            }
         }
     }
 }

@@ -113,13 +113,13 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 100;
+            this.columnHeaderName.Width = 150;
             // 
             // columnHeaderDescription
             // 
             this.columnHeaderDescription.Tag = "";
             this.columnHeaderDescription.Text = "Description";
-            this.columnHeaderDescription.Width = 200;
+            this.columnHeaderDescription.Width = 300;
             // 
             // columnHeaderPrice
             // 

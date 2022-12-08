@@ -49,16 +49,19 @@ namespace Client.Present.Items
 
         private void ItemOrder_Load(object sender, EventArgs e)
         {
+            double sum = 0;
             materialLabelOrderNumber.Text = $"Заказ №: {Order.Id}";
             materialLabelDate.Text = $"Дата: {Order.purchaseDate}";
             foreach (var item in productsInOrder)
             {
+                sum += item.productPrice;
                 ListViewItem lvItem = new ListViewItem(item.productName);
                 lvItem.SubItems.Add(item.productDescription);
                 lvItem.SubItems.Add(item.productPrice.ToString());
                 lvItem.SubItems.Add(orderItems.Where(oi => oi.productId == item.Id).Count().ToString());
                 materialListView1.Items.Add(lvItem);
             }
+            materialLabelTotal.Text = $"Total: {sum}$";
         }
     }
 }

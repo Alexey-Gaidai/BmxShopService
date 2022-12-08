@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
@@ -19,13 +20,13 @@ namespace BmxShopService.Controllers
             _context = context;
         }
 
-        [HttpPost("/signin")]
+        [HttpPost("/signup")]
         public async Task<ActionResult<UserLogin>> PostUser(UserClient newUser)
         {
             cryptPassword(newUser.Password, out string hashedPassword, out string salt);
             if(_context.User.Any(u => u.Email == newUser.Email))
             {
-                return BadRequest("User already exists");
+                return StatusCode((int)HttpStatusCode.Conflict, "Email уже используется"); ;
             }
             var user = new User
             {
