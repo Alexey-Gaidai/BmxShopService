@@ -12,12 +12,12 @@ namespace Client.UseCases
         public Task<T> GetSupplies<T>(string tokenKey);
         public Task<string> UpdateSupplies(string tokenKey, Supplies sup);
         public Task<List<Products>> GetProduct(string tokenKey);
-        public Task<string> CreateOrder(int userID, string date);
+        public Task<string> CreateOrder(int userId, DateTime date, bool status, string tokenKey);
+        public Task<string> UpdateOrder(string tokenKey, Order ord);
         public Task<List<Order>> GetOrders(string tokenKey, string parameter);
         public Task<T> GetProduct<T>(string tokenKey, string parameter);
         public Task<List<OrderItems>> GetOrderItems(string tokenKey, string parameter);
-        public Task<string> AddOrderItems(OrderItems[] orderItems);
-        public Task<string> DeleteOrder(int userID);
-        //public Task<string> AddItems(OrderItems items);
+        public Task<string> AddOrderItems(string tokenKey, OrderItems[] orderItems);
+        public Task<string> DeleteOrder(string tokenKey, int userID);
     }
 }

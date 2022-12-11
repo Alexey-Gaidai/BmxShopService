@@ -14,13 +14,23 @@ namespace Client.Present.Items
     public partial class ItemOrder : UserControl
     {
         public int id;
+        public Order ord { get { return Order; } }
         private Order Order;
         private List<OrderItems> orderItems;
         private List<Products> productsInOrder = new List<Products>();
         public event EventHandler OrderDelete;
+        public event EventHandler Payment;
         protected virtual void OnDeleteClicked(EventArgs e)
         {
             EventHandler eh = OrderDelete;
+            if (eh != null)
+            {
+                eh(this, e);
+            }
+        }
+        protected virtual void OnPayClicked(EventArgs e)
+        {
+            EventHandler eh = Payment;
             if (eh != null)
             {
                 eh(this, e);
@@ -62,6 +72,21 @@ namespace Client.Present.Items
                 materialListView1.Items.Add(lvItem);
             }
             materialLabelTotal.Text = $"Total: {sum}$";
+            if (Order.status == 0)
+            {
+                materialLabelOrderStatus.Text = $"Status: Awaiting payment";
+            }
+            else
+            {
+                materialLabelOrderStatus.Text = $"Status: Paid";
+                materialButtonPay.Enabled = false;
+                materialButtonPay.Hide();
+            }
+        }
+
+        private void materialButtonPay_Click(object sender, EventArgs e)
+        {
+            OnPayClicked(null);
         }
     }
 }

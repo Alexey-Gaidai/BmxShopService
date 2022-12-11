@@ -33,7 +33,9 @@
             this.materialLabelPrice = new MaterialSkin.Controls.MaterialLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialButtonAddToCard
@@ -44,7 +46,7 @@
             this.materialButtonAddToCard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.materialButtonAddToCard.HighEmphasis = true;
             this.materialButtonAddToCard.Icon = null;
-            this.materialButtonAddToCard.Location = new System.Drawing.Point(0, 190);
+            this.materialButtonAddToCard.Location = new System.Drawing.Point(0, 215);
             this.materialButtonAddToCard.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonAddToCard.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonAddToCard.Name = "materialButtonAddToCard";
@@ -60,16 +62,16 @@
             // 
             // materialLabelName
             // 
-            this.materialLabelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialLabelName.AutoSize = true;
             this.materialLabelName.Depth = 0;
+            this.materialLabelName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabelName.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabelName.Location = new System.Drawing.Point(65, 8);
+            this.materialLabelName.Location = new System.Drawing.Point(0, 0);
             this.materialLabelName.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabelName.Name = "materialLabelName";
-            this.materialLabelName.Size = new System.Drawing.Size(62, 19);
+            this.materialLabelName.Size = new System.Drawing.Size(201, 25);
             this.materialLabelName.TabIndex = 1;
             this.materialLabelName.Text = "Example";
+            this.materialLabelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // materialLabelPrice
             // 
@@ -77,7 +79,7 @@
             this.materialLabelPrice.AutoSize = true;
             this.materialLabelPrice.Depth = 0;
             this.materialLabelPrice.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabelPrice.Location = new System.Drawing.Point(80, 165);
+            this.materialLabelPrice.Location = new System.Drawing.Point(80, 190);
             this.materialLabelPrice.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabelPrice.Name = "materialLabelPrice";
             this.materialLabelPrice.Size = new System.Drawing.Size(37, 19);
@@ -87,9 +89,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(16, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 44);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(170, 132);
+            this.pictureBox1.Size = new System.Drawing.Size(195, 132);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
@@ -100,23 +102,32 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(201, 5);
+            this.panel1.Size = new System.Drawing.Size(201, 10);
             this.panel1.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.materialLabelName);
+            this.panel2.Location = new System.Drawing.Point(0, 16);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(201, 25);
+            this.panel2.TabIndex = 5;
             // 
             // ItemProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.materialLabelPrice);
-            this.Controls.Add(this.materialLabelName);
             this.Controls.Add(this.materialButtonAddToCard);
             this.Name = "ItemProduct";
-            this.Size = new System.Drawing.Size(201, 226);
+            this.Size = new System.Drawing.Size(201, 251);
             this.Load += new System.EventHandler(this.ItemProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,5 +140,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabelPrice;
         private PictureBox pictureBox1;
         private Panel panel1;
+        private Panel panel2;
     }
 }

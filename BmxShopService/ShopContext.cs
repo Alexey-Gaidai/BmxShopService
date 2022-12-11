@@ -51,6 +51,10 @@ namespace BmxShopService
                 b.HasKey(d => d.Id);
                 b.HasMany(d => d.products);
             });
+            modelBuilder.Entity<OrderItems>(i =>
+            {
+                i.HasOne(o => o.order);
+            });
         }
     }
 }

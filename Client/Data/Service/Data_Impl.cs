@@ -1,6 +1,7 @@
 ﻿using Client.Data.Models;
 using Client.Present;
 using Client.UseCases;
+using MaterialSkin.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Net.Http.Json;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Client.Data.Service
@@ -32,8 +34,8 @@ namespace Client.Data.Service
                     var bytes = await result.Content.ReadAsByteArrayAsync();
                     Encoding encoding = Encoding.GetEncoding("utf-8");
                     data = encoding.GetString(bytes, 0, bytes.Length);
-                    result.EnsureSuccessStatusCode();
                     message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
                 }
                 var products = JsonConvert.DeserializeObject<T>(data);
                 return products;
@@ -61,11 +63,9 @@ namespace Client.Data.Service
                 data = encoding.GetString(bytes, 0, bytes.Length);
                 result.EnsureSuccessStatusCode();
             }
-            MessageBox.Show(data);
             var orders = JsonConvert.DeserializeObject<List<Order>>(data);
             return orders;
         }
-
 
         public async Task<List<Products>> GetProduct(string tokenKey)
         {
@@ -89,7 +89,7 @@ namespace Client.Data.Service
             return products;
         }
 
-        public async Task<string> DeleteOrder(int userId)
+        public async Task<string> DeleteOrder(string tokenKey, int userId)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
@@ -97,6 +97,8 @@ namespace Client.Data.Service
             string message = "";
             using (var client = new HttpClient { BaseAddress = baseAddress })
             {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
                 var result = await client.DeleteAsync(url);
                 var bytes = await result.Content.ReadAsByteArrayAsync();
 
@@ -134,36 +136,50 @@ namespace Client.Data.Service
             return orderItems;
         }
 
-        public async Task<string> CreateOrder(int userId, string date)
+        public async Task<string> CreateOrder(int userId, DateTime date, bool status, string tokenKey)
         {
-            string data;
-            var baseAddress = new Uri("https://localhost:7132");
-            string url = "/api/Orders";
-            string message = "";
-
-            var content = new FormUrlEncodedContent(new[]
+            try
             {
-                new KeyValuePair<string, string>("userId",  userId.ToString()),
-                new KeyValuePair<string, string>("date", date),
-            });
+                string data;
+                var baseAddress = new Uri("https://localhost:7132");
+                string url = "/api/Orders";
+                string message = "";
 
-            using (var client = new HttpClient { BaseAddress = baseAddress })
-            {
-                var result = await client.PostAsync(url, content);
-                var bytes = await result.Content.ReadAsByteArrayAsync();
-
-                Encoding encoding = Encoding.GetEncoding("utf-8");
-                data = encoding.GetString(bytes, 0, bytes.Length);
-                result.EnsureSuccessStatusCode();
-                if (result.IsSuccessStatusCode)
+                var contentObj = new Order
                 {
-                    message = result.StatusCode.ToString();
+                    Id = 0,
+                    UserId = userId,
+                    purchaseDate = date.ToString(),
+                    status = 0
+                };
+                var content = new StringContent(JsonConvert.SerializeObject(contentObj), Encoding.UTF8, "application/json");
+                using (var client = new HttpClient { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+
+                    var result = await client.PostAsync(url, content);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    result.EnsureSuccessStatusCode();
+                    if (result.IsSuccessStatusCode)
+                    {
+                        message = result.StatusCode.ToString();
+                    }
                 }
-                
+                MaterialMessageBox.Show(data);
+                return data;
             }
-            return data;
+            catch(HttpRequestException ex)
+            {
+                var t = new Thread(() => Application.Run(new FormLogin()));
+                t.Start();
+                return null;
+            }
         }
-        public async Task<string> AddOrderItems(OrderItems[] orderItems)
+        public async Task<string> AddOrderItems(string tokenKey, OrderItems[] orderItems)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
@@ -172,6 +188,8 @@ namespace Client.Data.Service
 
             using (var client = new HttpClient { BaseAddress = baseAddress })
             {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
                 var result = await client.PostAsJsonAsync(url, orderItems);
                 var bytes = await result.Content.ReadAsByteArrayAsync();
 
@@ -191,7 +209,7 @@ namespace Client.Data.Service
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
-            string url = $"/api/Deliveries/";
+            string url = $"/api/Supplies/";
             string message = "";
             try
             {
@@ -203,19 +221,51 @@ namespace Client.Data.Service
                     var bytes = await result.Content.ReadAsByteArrayAsync();
                     Encoding encoding = Encoding.GetEncoding("utf-8");
                     data = encoding.GetString(bytes, 0, bytes.Length);
-                    result.EnsureSuccessStatusCode();
                     message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                    
                 }
                 var supplies = JsonConvert.DeserializeObject<T>(data);
                 return supplies;
             }
             catch
             {
-                MessageBox.Show("Время сеанса истекло, войдите в аккаунт заново.", message);
+                MessageBox.Show(message);
                 return default;
             }
 
         }
+
+        public async Task<string> UpdateOrder(string tokenKey, Order ord)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"/api/Orders/{ord.Id}";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.PutAsJsonAsync(url, ord);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
+
+                return message;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+                return message;
+            }
+
+        }
+
         public async Task<string> UpdateSupplies(string tokenKey, Supplies sup)
         {
             string data;
@@ -232,8 +282,8 @@ namespace Client.Data.Service
                     var bytes = await result.Content.ReadAsByteArrayAsync();
                     Encoding encoding = Encoding.GetEncoding("utf-8");
                     data = encoding.GetString(bytes, 0, bytes.Length);
-                    result.EnsureSuccessStatusCode();
                     message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
                 }
                 
                 return message;

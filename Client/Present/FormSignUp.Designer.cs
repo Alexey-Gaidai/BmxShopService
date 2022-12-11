@@ -399,8 +399,10 @@
             this.Controls.Add(this.materialTextBoxLastname);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.materialTextBoxName);
+            this.MaximizeBox = false;
             this.Name = "FormSignUp";
-            this.Text = "FormSignIn";
+            this.Sizable = false;
+            this.Text = "SignUp";
             this.ResumeLayout(false);
             this.PerformLayout();
 

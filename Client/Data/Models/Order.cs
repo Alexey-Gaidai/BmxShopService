@@ -10,6 +10,7 @@ namespace Client.Data.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public DateTime purchaseDate { get; set; }
+        public string purchaseDate { get; set; }
+        public int status { get; set; }
     }
 }

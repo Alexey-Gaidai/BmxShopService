@@ -9,31 +9,47 @@ using BmxShopService;
 using BmxShopService.Models;
 using BmxShopService.Models.Client;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BmxShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DeliveriesController : ControllerBase
+    public class SuppliesController : ControllerAbstract
     {
         private readonly ShopContext _context;
 
-        public DeliveriesController(ShopContext context)
+        public SuppliesController(ShopContext context)
         {
             _context = context;
         }
 
         // GET: api/Deliveries
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Deliveries>>> GetDeliveries()
         {
-            return await _context.Deliveries.ToListAsync();
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+            else
+            {
+                return await _context.Deliveries.ToListAsync();
+            }
         }
 
         // GET: api/Deliveries/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Deliveries>> GetDeliveries(int id)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var deliveries = await _context.Deliveries.FindAsync(id);
 
             if (deliveries == null)
@@ -47,8 +63,14 @@ namespace BmxShopService.Controllers
         // PUT: api/Deliveries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutDeliveries(int id, Supplies sup)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var deliveries = new Deliveries
             {
                 id = sup.id,
@@ -85,8 +107,14 @@ namespace BmxShopService.Controllers
         // POST: api/Deliveries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Deliveries>> PostDeliveries(Deliveries deliveries)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             _context.Deliveries.Add(deliveries);
             await _context.SaveChangesAsync();
 
@@ -95,8 +123,14 @@ namespace BmxShopService.Controllers
 
         // DELETE: api/Deliveries/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteDeliveries(int id)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var deliveries = await _context.Deliveries.FindAsync(id);
             if (deliveries == null)
             {

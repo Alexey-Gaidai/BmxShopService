@@ -9,12 +9,13 @@ using BmxShopService;
 using BmxShopService.Models;
 using Newtonsoft.Json;
 using BmxShopService.Models.Client;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BmxShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderItemsController : ControllerBase
+    public class OrderItemsController : ControllerAbstract
     {
         private readonly ShopContext _context;
 
@@ -25,15 +26,27 @@ namespace BmxShopService.Controllers
 
         // GET: api/OrderItems
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderItems>>> GetOrderItemsById(int orderId)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             return await _context.OrderItems.Where(o => o.orderId == orderId).ToListAsync();
         }
 
         // GET: api/OrderItems/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<OrderItems>> GetOrderItems(int id)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var orderItems = await _context.OrderItems.FindAsync(id);
 
             if (orderItems == null)
@@ -47,8 +60,14 @@ namespace BmxShopService.Controllers
         // PUT: api/OrderItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutOrderItems(int id, OrderItems orderItems)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             if (id != orderItems.id)
             {
                 return BadRequest();
@@ -78,10 +97,14 @@ namespace BmxShopService.Controllers
         // POST: api/OrderItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<OrderItems>> PostOrderItems(OrderItemClient[] orderItems)
         {
-            var json = JsonConvert.SerializeObject(orderItems);
-            Console.WriteLine(json);
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var items = new OrderItems[orderItems.Length];
             for (int i = 0; i < orderItems.Length; i++)
             {
@@ -100,8 +123,14 @@ namespace BmxShopService.Controllers
 
         // DELETE: api/OrderItems/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteOrderItems(int id)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var orderItems = await _context.OrderItems.FindAsync(id);
             if (orderItems == null)
             {

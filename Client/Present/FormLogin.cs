@@ -2,16 +2,7 @@
 using Client.UseCases;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace Client.Present
 {
@@ -41,7 +32,13 @@ namespace Client.Present
             );
         }
 
-        private async void buttonLogin_Click(object sender, EventArgs e)
+        private void materialLabelSignUp_Click(object sender, EventArgs e)
+        {
+            FormSignUp signUp = new FormSignUp();
+            signUp.Show();
+        }
+
+        private async void materialButtonLogIn_Click(object sender, EventArgs e)
         {
             try
             {
@@ -51,15 +48,10 @@ namespace Client.Present
                 this.Hide();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(Text, ex.Message);
+                MaterialMessageBox.Show("Логин или пароль введены неверно", "Ошибка авторизации");
             }
-        }
-        private void materialLabelSignUp_Click(object sender, EventArgs e)
-        {
-            FormSignUp signIn = new FormSignUp();
-            signIn.Show();
         }
     }
 }

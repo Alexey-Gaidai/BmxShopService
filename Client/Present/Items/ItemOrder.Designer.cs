@@ -39,6 +39,7 @@
             this.columnHeaderCount = new System.Windows.Forms.ColumnHeader();
             this.materialLabelTotal = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabelDate = new MaterialSkin.Controls.MaterialLabel();
+            this.materialButtonPay = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,7 +137,7 @@
             this.materialLabelTotal.AutoSize = true;
             this.materialLabelTotal.Depth = 0;
             this.materialLabelTotal.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabelTotal.Location = new System.Drawing.Point(708, 151);
+            this.materialLabelTotal.Location = new System.Drawing.Point(554, 151);
             this.materialLabelTotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabelTotal.Name = "materialLabelTotal";
             this.materialLabelTotal.Size = new System.Drawing.Size(82, 19);
@@ -155,11 +156,32 @@
             this.materialLabelDate.TabIndex = 7;
             this.materialLabelDate.Text = "Дата: 12.12.2022";
             // 
+            // materialButtonPay
+            // 
+            this.materialButtonPay.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButtonPay.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButtonPay.Depth = 0;
+            this.materialButtonPay.HighEmphasis = true;
+            this.materialButtonPay.Icon = null;
+            this.materialButtonPay.Location = new System.Drawing.Point(667, 134);
+            this.materialButtonPay.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButtonPay.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButtonPay.Name = "materialButtonPay";
+            this.materialButtonPay.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButtonPay.Size = new System.Drawing.Size(158, 36);
+            this.materialButtonPay.TabIndex = 8;
+            this.materialButtonPay.Text = "Оплатить";
+            this.materialButtonPay.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButtonPay.UseAccentColor = false;
+            this.materialButtonPay.UseVisualStyleBackColor = true;
+            this.materialButtonPay.Click += new System.EventHandler(this.materialButtonPay_Click);
+            // 
             // ItemOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.materialButtonPay);
             this.Controls.Add(this.materialLabelDate);
             this.Controls.Add(this.materialLabelTotal);
             this.Controls.Add(this.materialListView1);
@@ -189,5 +211,6 @@
         private ColumnHeader columnHeaderCount;
         private MaterialSkin.Controls.MaterialLabel materialLabelTotal;
         private MaterialSkin.Controls.MaterialLabel materialLabelDate;
+        private MaterialSkin.Controls.MaterialButton materialButtonPay;
     }
 }

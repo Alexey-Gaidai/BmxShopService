@@ -40,7 +40,7 @@
             this.columnHeaderCount = new System.Windows.Forms.ColumnHeader();
             this.tabPageProducts = new System.Windows.Forms.TabPage();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialTextBoxFindProducts = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialFloatingActionButton1 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPageAccount = new System.Windows.Forms.TabPage();
@@ -101,7 +101,7 @@
             this.materialButtonChekout.Depth = 0;
             this.materialButtonChekout.HighEmphasis = true;
             this.materialButtonChekout.Icon = null;
-            this.materialButtonChekout.Location = new System.Drawing.Point(683, 425);
+            this.materialButtonChekout.Location = new System.Drawing.Point(876, 455);
             this.materialButtonChekout.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButtonChekout.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButtonChekout.Name = "materialButtonChekout";
@@ -134,7 +134,7 @@
             this.materialLabelTotal.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabelTotal.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
             this.materialLabelTotal.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.materialLabelTotal.Location = new System.Drawing.Point(382, 6);
+            this.materialLabelTotal.Location = new System.Drawing.Point(389, 6);
             this.materialLabelTotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabelTotal.Name = "materialLabelTotal";
             this.materialLabelTotal.Size = new System.Drawing.Size(62, 29);
@@ -158,7 +158,7 @@
             this.materialListView1.MouseState = MaterialSkin.MouseState.OUT;
             this.materialListView1.Name = "materialListView1";
             this.materialListView1.OwnerDraw = true;
-            this.materialListView1.Size = new System.Drawing.Size(370, 409);
+            this.materialListView1.Size = new System.Drawing.Size(367, 409);
             this.materialListView1.TabIndex = 0;
             this.materialListView1.UseCompatibleStateImageBehavior = false;
             this.materialListView1.View = System.Windows.Forms.View.Details;
@@ -166,19 +166,22 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 150;
             // 
             // columnHeaderPrice
             // 
             this.columnHeaderPrice.Text = "Price";
+            this.columnHeaderPrice.Width = 100;
             // 
             // columnHeaderCount
             // 
             this.columnHeaderCount.Text = "Count";
+            this.columnHeaderCount.Width = 100;
             // 
             // tabPageProducts
             // 
             this.tabPageProducts.Controls.Add(this.materialLabel1);
-            this.tabPageProducts.Controls.Add(this.materialTextBox21);
+            this.tabPageProducts.Controls.Add(this.materialTextBoxFindProducts);
             this.tabPageProducts.Controls.Add(this.materialFloatingActionButton1);
             this.tabPageProducts.Controls.Add(this.flowLayoutPanel1);
             this.tabPageProducts.Location = new System.Drawing.Point(4, 24);
@@ -201,33 +204,33 @@
             this.materialLabel1.TabIndex = 4;
             this.materialLabel1.Text = "Find:";
             // 
-            // materialTextBox21
+            // materialTextBoxFindProducts
             // 
-            this.materialTextBox21.AnimateReadOnly = false;
-            this.materialTextBox21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox21.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox21.Depth = 0;
-            this.materialTextBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox21.HideSelection = true;
-            this.materialTextBox21.LeadingIcon = null;
-            this.materialTextBox21.Location = new System.Drawing.Point(48, 14);
-            this.materialTextBox21.MaxLength = 32767;
-            this.materialTextBox21.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox21.Name = "materialTextBox21";
-            this.materialTextBox21.PasswordChar = '\0';
-            this.materialTextBox21.PrefixSuffixText = null;
-            this.materialTextBox21.ReadOnly = false;
-            this.materialTextBox21.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox21.SelectedText = "";
-            this.materialTextBox21.SelectionLength = 0;
-            this.materialTextBox21.SelectionStart = 0;
-            this.materialTextBox21.ShortcutsEnabled = true;
-            this.materialTextBox21.Size = new System.Drawing.Size(250, 48);
-            this.materialTextBox21.TabIndex = 3;
-            this.materialTextBox21.TabStop = false;
-            this.materialTextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox21.TrailingIcon = null;
-            this.materialTextBox21.UseSystemPasswordChar = false;
+            this.materialTextBoxFindProducts.AnimateReadOnly = false;
+            this.materialTextBoxFindProducts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.materialTextBoxFindProducts.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.materialTextBoxFindProducts.Depth = 0;
+            this.materialTextBoxFindProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBoxFindProducts.HideSelection = true;
+            this.materialTextBoxFindProducts.LeadingIcon = null;
+            this.materialTextBoxFindProducts.Location = new System.Drawing.Point(48, 14);
+            this.materialTextBoxFindProducts.MaxLength = 32767;
+            this.materialTextBoxFindProducts.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialTextBoxFindProducts.Name = "materialTextBoxFindProducts";
+            this.materialTextBoxFindProducts.PasswordChar = '\0';
+            this.materialTextBoxFindProducts.PrefixSuffixText = null;
+            this.materialTextBoxFindProducts.ReadOnly = false;
+            this.materialTextBoxFindProducts.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.materialTextBoxFindProducts.SelectedText = "";
+            this.materialTextBoxFindProducts.SelectionLength = 0;
+            this.materialTextBoxFindProducts.SelectionStart = 0;
+            this.materialTextBoxFindProducts.ShortcutsEnabled = true;
+            this.materialTextBoxFindProducts.Size = new System.Drawing.Size(250, 48);
+            this.materialTextBoxFindProducts.TabIndex = 3;
+            this.materialTextBoxFindProducts.TabStop = false;
+            this.materialTextBoxFindProducts.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.materialTextBoxFindProducts.TrailingIcon = null;
+            this.materialTextBoxFindProducts.UseSystemPasswordChar = false;
             // 
             // materialFloatingActionButton1
             // 
@@ -304,7 +307,7 @@
             // 
             this.materialFloatingActionButton2.Depth = 0;
             this.materialFloatingActionButton2.Icon = ((System.Drawing.Image)(resources.GetObject("materialFloatingActionButton2.Icon")));
-            this.materialFloatingActionButton2.Location = new System.Drawing.Point(912, 3);
+            this.materialFloatingActionButton2.Location = new System.Drawing.Point(890, 420);
             this.materialFloatingActionButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFloatingActionButton2.Name = "materialFloatingActionButton2";
             this.materialFloatingActionButton2.Size = new System.Drawing.Size(56, 56);
@@ -319,9 +322,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 65);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 6);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(965, 476);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(965, 491);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // tabPageAdmin
@@ -637,7 +640,7 @@
         private MaterialSkin.Controls.MaterialScrollBar materialScrollBar1;
         private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton1;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox21;
+        private MaterialSkin.Controls.MaterialTextBox2 materialTextBoxFindProducts;
         private FlowLayoutPanel flowLayoutPanel2;
         private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton2;
         private TabPage tabPageAdmin;

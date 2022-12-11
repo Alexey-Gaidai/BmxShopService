@@ -1,9 +1,7 @@
-﻿using BmxShopService.Migrations;
-using BmxShopService.Models;
+﻿using BmxShopService.Models;
 using BmxShopService.Models.Client;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -78,35 +76,6 @@ namespace BmxShopService.Controllers
             };
             return Json(response);
         }
-
-        [HttpPost("/api/Orders")]
-        public async Task<ActionResult<string>> PostOrder(OrderClient newOrder)
-        {
-            var order = new Orders
-            {
-                UserId = newOrder.UserId,
-                purchaseDate = newOrder.Date
-            };
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-            
-
-            return order.id.ToString();
-        }
-
-        /*[HttpPost("/api/OrderItems")]
-        public async Task<ActionResult<Orders>> PostItems(OrderItemClient newItems)
-        {
-            var order = new Orders
-            {
-                UserId = newOrder.UserId,
-                purchaseDate = newOrder.Date
-            };
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.id }, order);
-        }*/
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {

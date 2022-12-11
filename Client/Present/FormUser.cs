@@ -7,6 +7,7 @@ using Client.Present.Items;
 using Application = System.Windows.Forms.Application;
 using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
+using System.Linq.Expressions;
 
 namespace Client.Present
 {
@@ -56,6 +57,8 @@ namespace Client.Present
             setData();
             this.Text = _AuthInfo.username;
             materialTabControl1.SelectedTab = tabPageProducts;
+            if(_AuthInfo.role == "user")
+                materialTabControl1.TabPages.Remove(tabPageAdmin);
         }
         void child_DataAvailable(object sender, EventArgs e)
         {
@@ -74,10 +77,32 @@ namespace Client.Present
                 deleteOrder(child);
             }
         }
+        void child_PayClicked(object sender, EventArgs e)
+        {
+            ItemOrder child = sender as ItemOrder;
+            if (child != null)
+            {
+                payOrder(child);
+            }
+        }
 
         private async void deleteOrder(ItemOrder child)
         {
-            await getData.DeleteOrder(child.id);
+            await getData.DeleteOrder(_AuthInfo.access_token, child.id);
+            setOrders();
+        }
+        private async void payOrder(ItemOrder child)
+        {
+            MaterialMessageBox.Show("Оплатить?","Оплата");
+            var order = new Order
+            {
+                Id = child.id,
+                UserId = child.ord.UserId,
+                purchaseDate = child.ord.purchaseDate,
+                status = 1,
+
+            };
+            await getData.UpdateOrder(_AuthInfo.access_token, order);
             setOrders();
         }
 
@@ -108,30 +133,23 @@ namespace Client.Present
 
         private async void setData()
         {
+            var data = await getData.GetProduct<List<Products>>(_AuthInfo.access_token, materialTextBoxFindProducts.Text);
             try
             {
                 flowLayoutPanel1.Controls.Clear();
-                var data = await getData.GetProduct<List<Products>>(_AuthInfo.access_token, materialTextBox21.Text);
                 products = data;
-                if(data!=null)
+                for (int i = 0; i < data.Count; i++)
                 {
-                    foreach (var item in data)
-                    {
-                        ItemProduct it = new ItemProduct(item);
-                        it.DataAvailable += new EventHandler(child_DataAvailable);
-                        flowLayoutPanel1.Controls.Add(it);
-                    }
-                }
-                else
-                {
-                    var t = new Thread(() => Application.Run(new FormLogin()));
-                    t.Start();
-                    this.Close();
+                    ItemProduct it = new ItemProduct(data[i]);
+                    it.DataAvailable += new EventHandler(child_DataAvailable);
+                    flowLayoutPanel1.Controls.Add(it);
                 }
             }
             catch
             {
-               
+                var t = new Thread(() => Application.Run(new FormLogin()));
+                t.Start();
+                this.Close();
             }
         }
 
@@ -144,15 +162,16 @@ namespace Client.Present
                 var ordItems = await getData.GetOrderItems(_AuthInfo.access_token, item.Id.ToString());
                 ItemOrder order = new ItemOrder(item, ordItems, products);
                 order.OrderDelete += new EventHandler(child_DeleteClicked);
+                order.Payment += new EventHandler(child_PayClicked);
                 flowLayoutPanel2.Controls.Add(order);
             }
         }
 
         private async void materialButtonChekout_Click(object sender, EventArgs e)
         {
-            DateTime date = DateTime.Now;
-            var checkout = await getData.CreateOrder(Convert.ToInt32(_AuthInfo.userId), date.ToString());
-            var items = await getData.AddOrderItems(itemsToArray(checkout));
+            var checkout = await getData.CreateOrder(Convert.ToInt32(_AuthInfo.userId), DateTime.Now, true, _AuthInfo.access_token);
+            var items = await getData.AddOrderItems(_AuthInfo.access_token,itemsToArray(checkout));
+            setOrders();
         }
 
         private OrderItems[] itemsToArray(string _orderId)
@@ -162,7 +181,6 @@ namespace Client.Present
             {
                 items[i] = new OrderItems
                 {
-                    id = 0,
                     productId = basketToOrder[i].productId,
                     Count = basketToOrder[i].count,
                     orderId = Convert.ToInt32(_orderId),
@@ -182,6 +200,7 @@ namespace Client.Present
             {
                 MessageBox.Show("У вас нет доступа!");
                 materialTabControl1.SelectedTab = tabPageProducts;
+                materialTabControl1.SelectedTab.Update();
             }
             setSupplies();
         }
@@ -191,22 +210,24 @@ namespace Client.Present
             setOrders();
         }
 
-
-        private void materialButtonSuppliesApply_Click(object sender, EventArgs e)
-        {
-            
-        }
         private async void setSupplies()
         {
-            var data = await getData.GetSupplies<List<Supplies>>(_AuthInfo.access_token);
-
-            for (int i = 0; i < data.Count; i++)
+            try
             {
-                dataGridViewSupplies.Rows.Add();
-                dataGridViewSupplies.Rows[i].Cells["columnId"].Value = data[i].id;
-                dataGridViewSupplies.Rows[i].Cells["ColumnProductId"].Value = data[i].productsId;
-                dataGridViewSupplies.Rows[i].Cells["columnDate"].Value = data[i].deliveryDate;
-                dataGridViewSupplies.Rows[i].Cells["columnCount"].Value = data[i].productCount;
+                var data = await getData.GetSupplies<List<Supplies>>(_AuthInfo.access_token);
+
+                for (int i = 0; i < data.Count; i++)
+                {
+                    dataGridViewSupplies.Rows.Add();
+                    dataGridViewSupplies.Rows[i].Cells["columnId"].Value = data[i].id;
+                    dataGridViewSupplies.Rows[i].Cells["ColumnProductId"].Value = data[i].productsId;
+                    dataGridViewSupplies.Rows[i].Cells["columnDate"].Value = data[i].deliveryDate;
+                    dataGridViewSupplies.Rows[i].Cells["columnCount"].Value = data[i].productCount;
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -231,6 +252,11 @@ namespace Client.Present
                     MessageBox.Show("что то пошло не так");
                 }
             }
+        }
+
+        private void materialSlider1_onValueChanged(object sender, int newValue)
+        {
+            // TODO: ограничение цены
         }
     }
 }

@@ -136,6 +136,7 @@
             this.materialButtonLogIn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonLogIn.UseAccentColor = false;
             this.materialButtonLogIn.UseVisualStyleBackColor = true;
+            this.materialButtonLogIn.Click += new System.EventHandler(this.materialButtonLogIn_Click);
             // 
             // materialLabelSignUp
             // 
@@ -166,8 +167,10 @@
             this.Controls.Add(this.materialTextBoxPassword);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.materialTextBoxLogin);
+            this.MaximizeBox = false;
             this.Name = "FormLogin";
-            this.Text = "FormLogin";
+            this.Sizable = false;
+            this.Text = "Login";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);

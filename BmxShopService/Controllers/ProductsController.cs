@@ -1,31 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BmxShopService;
 using BmxShopService.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Drawing;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using NuGet.Common;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Net;
+using NuGet.Common;
 
 namespace BmxShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : ControllerAbstract
     {
-        private JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         private readonly ShopContext _context;
 
         public ProductsController(ShopContext context)
@@ -37,9 +22,11 @@ namespace BmxShopService.Controllers
         [Authorize]
         public async Task<ActionResult<List<Products>>> GetProducts()
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
             var products = await _context.Products.ToListAsync();
 
-            if (products == null)
+            if (products == null && Validation(token))
             {
                 return NotFound();
             }
@@ -78,9 +65,14 @@ namespace BmxShopService.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutProducts(int id, Products products)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             if (id != products.id)
             {
                 return BadRequest();
+            }
+            if(Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             _context.Entry(products).State = EntityState.Modified;
@@ -110,6 +102,11 @@ namespace BmxShopService.Controllers
         [Authorize(Roles = "admin")]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
+            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             _context.Products.Add(products);
             await _context.SaveChangesAsync();
 
@@ -121,6 +118,11 @@ namespace BmxShopService.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProducts(int id)
         {
+                        var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var products = await _context.Products.FindAsync(id);
             if (products == null)
             {
@@ -136,29 +138,6 @@ namespace BmxShopService.Controllers
         private bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.id == id);
-        }
-        private bool Validation(string? token)
-        {
-            try
-            {
-                var key = Encoding.ASCII.GetBytes(AuthOptions.KEY);
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
