@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Shop));
             this.tabPageBasket = new System.Windows.Forms.TabPage();
             this.materialButtonChekout = new MaterialSkin.Controls.MaterialButton();
@@ -44,6 +43,20 @@
             this.materialFloatingActionButton1 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPageAccount = new System.Windows.Forms.TabPage();
+            this.labelAccountImage = new MaterialSkin.Controls.MaterialLabel();
+            this.pbAccount = new System.Windows.Forms.PictureBox();
+            this.btAccountSave = new MaterialSkin.Controls.MaterialButton();
+            this.btAccountEdit = new MaterialSkin.Controls.MaterialButton();
+            this.mtbAccountAddress = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
+            this.labelAccountAddress = new MaterialSkin.Controls.MaterialLabel();
+            this.tbAccountEmail = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountEmail = new MaterialSkin.Controls.MaterialLabel();
+            this.tbAccountPhone = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountPhone = new MaterialSkin.Controls.MaterialLabel();
+            this.tbAccountLastname = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountLastname = new MaterialSkin.Controls.MaterialLabel();
+            this.tbAccountName = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountName = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
             this.materialFloatingActionButton2 = new MaterialSkin.Controls.MaterialFloatingActionButton();
@@ -68,16 +81,18 @@
             this.tabPageCategories = new System.Windows.Forms.TabPage();
             this.tabPageUsers = new System.Windows.Forms.TabPage();
             this.tabPageProduct = new System.Windows.Forms.TabPage();
-            this.dataImplBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbAccountImage = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountImg = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageBasket.SuspendLayout();
             this.tabPageProducts.SuspendLayout();
+            this.tabPageAccount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAccount)).BeginInit();
             this.materialTabControl1.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.tabPageAdmin.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
             this.tabPageAddSupply.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataImplBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPageBasket
@@ -263,6 +278,22 @@
             // 
             // tabPageAccount
             // 
+            this.tabPageAccount.Controls.Add(this.tbAccountImage);
+            this.tabPageAccount.Controls.Add(this.labelAccountImg);
+            this.tabPageAccount.Controls.Add(this.labelAccountImage);
+            this.tabPageAccount.Controls.Add(this.pbAccount);
+            this.tabPageAccount.Controls.Add(this.btAccountSave);
+            this.tabPageAccount.Controls.Add(this.btAccountEdit);
+            this.tabPageAccount.Controls.Add(this.mtbAccountAddress);
+            this.tabPageAccount.Controls.Add(this.labelAccountAddress);
+            this.tabPageAccount.Controls.Add(this.tbAccountEmail);
+            this.tabPageAccount.Controls.Add(this.labelAccountEmail);
+            this.tabPageAccount.Controls.Add(this.tbAccountPhone);
+            this.tabPageAccount.Controls.Add(this.labelAccountPhone);
+            this.tabPageAccount.Controls.Add(this.tbAccountLastname);
+            this.tabPageAccount.Controls.Add(this.labelAccountLastname);
+            this.tabPageAccount.Controls.Add(this.tbAccountName);
+            this.tabPageAccount.Controls.Add(this.labelAccountName);
             this.tabPageAccount.Location = new System.Drawing.Point(4, 24);
             this.tabPageAccount.Name = "tabPageAccount";
             this.tabPageAccount.Padding = new System.Windows.Forms.Padding(3);
@@ -270,6 +301,268 @@
             this.tabPageAccount.TabIndex = 0;
             this.tabPageAccount.Text = "Account";
             this.tabPageAccount.UseVisualStyleBackColor = true;
+            // 
+            // labelAccountImage
+            // 
+            this.labelAccountImage.AutoSize = true;
+            this.labelAccountImage.Depth = 0;
+            this.labelAccountImage.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountImage.Location = new System.Drawing.Point(586, 12);
+            this.labelAccountImage.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountImage.Name = "labelAccountImage";
+            this.labelAccountImage.Size = new System.Drawing.Size(51, 19);
+            this.labelAccountImage.TabIndex = 13;
+            this.labelAccountImage.Text = "Avatar:";
+            // 
+            // pbAccount
+            // 
+            this.pbAccount.Location = new System.Drawing.Point(586, 34);
+            this.pbAccount.Name = "pbAccount";
+            this.pbAccount.Size = new System.Drawing.Size(336, 364);
+            this.pbAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbAccount.TabIndex = 12;
+            this.pbAccount.TabStop = false;
+            // 
+            // btAccountSave
+            // 
+            this.btAccountSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btAccountSave.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btAccountSave.Depth = 0;
+            this.btAccountSave.HighEmphasis = true;
+            this.btAccountSave.Icon = null;
+            this.btAccountSave.Location = new System.Drawing.Point(793, 446);
+            this.btAccountSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btAccountSave.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btAccountSave.Name = "btAccountSave";
+            this.btAccountSave.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btAccountSave.Size = new System.Drawing.Size(129, 36);
+            this.btAccountSave.TabIndex = 11;
+            this.btAccountSave.Text = "Save Changes";
+            this.btAccountSave.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btAccountSave.UseAccentColor = false;
+            this.btAccountSave.UseVisualStyleBackColor = true;
+            this.btAccountSave.Click += new System.EventHandler(this.btAccountSave_Click);
+            // 
+            // btAccountEdit
+            // 
+            this.btAccountEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btAccountEdit.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btAccountEdit.Depth = 0;
+            this.btAccountEdit.HighEmphasis = true;
+            this.btAccountEdit.Icon = null;
+            this.btAccountEdit.Location = new System.Drawing.Point(586, 446);
+            this.btAccountEdit.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btAccountEdit.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btAccountEdit.Name = "btAccountEdit";
+            this.btAccountEdit.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btAccountEdit.Size = new System.Drawing.Size(155, 36);
+            this.btAccountEdit.TabIndex = 10;
+            this.btAccountEdit.Text = "Edit Information";
+            this.btAccountEdit.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btAccountEdit.UseAccentColor = false;
+            this.btAccountEdit.UseVisualStyleBackColor = true;
+            this.btAccountEdit.Click += new System.EventHandler(this.btAccountEdit_Click);
+            // 
+            // mtbAccountAddress
+            // 
+            this.mtbAccountAddress.AnimateReadOnly = false;
+            this.mtbAccountAddress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.mtbAccountAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.mtbAccountAddress.Depth = 0;
+            this.mtbAccountAddress.HideSelection = true;
+            this.mtbAccountAddress.Location = new System.Drawing.Point(6, 209);
+            this.mtbAccountAddress.MaxLength = 32767;
+            this.mtbAccountAddress.MouseState = MaterialSkin.MouseState.OUT;
+            this.mtbAccountAddress.Name = "mtbAccountAddress";
+            this.mtbAccountAddress.PasswordChar = '\0';
+            this.mtbAccountAddress.ReadOnly = true;
+            this.mtbAccountAddress.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbAccountAddress.SelectedText = "";
+            this.mtbAccountAddress.SelectionLength = 0;
+            this.mtbAccountAddress.SelectionStart = 0;
+            this.mtbAccountAddress.ShortcutsEnabled = true;
+            this.mtbAccountAddress.Size = new System.Drawing.Size(506, 124);
+            this.mtbAccountAddress.TabIndex = 9;
+            this.mtbAccountAddress.TabStop = false;
+            this.mtbAccountAddress.Text = "materialMultiLineTextBox21";
+            this.mtbAccountAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.mtbAccountAddress.UseSystemPasswordChar = false;
+            // 
+            // labelAccountAddress
+            // 
+            this.labelAccountAddress.AutoSize = true;
+            this.labelAccountAddress.Depth = 0;
+            this.labelAccountAddress.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountAddress.Location = new System.Drawing.Point(6, 187);
+            this.labelAccountAddress.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountAddress.Name = "labelAccountAddress";
+            this.labelAccountAddress.Size = new System.Drawing.Size(98, 19);
+            this.labelAccountAddress.TabIndex = 8;
+            this.labelAccountAddress.Text = "Post Address:";
+            // 
+            // tbAccountEmail
+            // 
+            this.tbAccountEmail.AnimateReadOnly = false;
+            this.tbAccountEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountEmail.Depth = 0;
+            this.tbAccountEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountEmail.HideSelection = true;
+            this.tbAccountEmail.LeadingIcon = null;
+            this.tbAccountEmail.Location = new System.Drawing.Point(8, 370);
+            this.tbAccountEmail.MaxLength = 32767;
+            this.tbAccountEmail.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountEmail.Name = "tbAccountEmail";
+            this.tbAccountEmail.PasswordChar = '\0';
+            this.tbAccountEmail.PrefixSuffixText = null;
+            this.tbAccountEmail.ReadOnly = true;
+            this.tbAccountEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountEmail.SelectedText = "";
+            this.tbAccountEmail.SelectionLength = 0;
+            this.tbAccountEmail.SelectionStart = 0;
+            this.tbAccountEmail.ShortcutsEnabled = true;
+            this.tbAccountEmail.Size = new System.Drawing.Size(504, 48);
+            this.tbAccountEmail.TabIndex = 7;
+            this.tbAccountEmail.TabStop = false;
+            this.tbAccountEmail.Text = "Lorem ";
+            this.tbAccountEmail.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountEmail.TrailingIcon = null;
+            this.tbAccountEmail.UseSystemPasswordChar = false;
+            // 
+            // labelAccountEmail
+            // 
+            this.labelAccountEmail.AutoSize = true;
+            this.labelAccountEmail.Depth = 0;
+            this.labelAccountEmail.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountEmail.Location = new System.Drawing.Point(8, 345);
+            this.labelAccountEmail.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountEmail.Name = "labelAccountEmail";
+            this.labelAccountEmail.Size = new System.Drawing.Size(45, 19);
+            this.labelAccountEmail.TabIndex = 6;
+            this.labelAccountEmail.Text = "Email:";
+            // 
+            // tbAccountPhone
+            // 
+            this.tbAccountPhone.AnimateReadOnly = false;
+            this.tbAccountPhone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountPhone.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountPhone.Depth = 0;
+            this.tbAccountPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountPhone.HideSelection = true;
+            this.tbAccountPhone.LeadingIcon = null;
+            this.tbAccountPhone.Location = new System.Drawing.Point(6, 122);
+            this.tbAccountPhone.MaxLength = 32767;
+            this.tbAccountPhone.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountPhone.Name = "tbAccountPhone";
+            this.tbAccountPhone.PasswordChar = '\0';
+            this.tbAccountPhone.PrefixSuffixText = null;
+            this.tbAccountPhone.ReadOnly = true;
+            this.tbAccountPhone.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountPhone.SelectedText = "";
+            this.tbAccountPhone.SelectionLength = 0;
+            this.tbAccountPhone.SelectionStart = 0;
+            this.tbAccountPhone.ShortcutsEnabled = true;
+            this.tbAccountPhone.Size = new System.Drawing.Size(250, 48);
+            this.tbAccountPhone.TabIndex = 5;
+            this.tbAccountPhone.TabStop = false;
+            this.tbAccountPhone.Text = "Lorem ";
+            this.tbAccountPhone.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountPhone.TrailingIcon = null;
+            this.tbAccountPhone.UseSystemPasswordChar = false;
+            // 
+            // labelAccountPhone
+            // 
+            this.labelAccountPhone.AutoSize = true;
+            this.labelAccountPhone.Depth = 0;
+            this.labelAccountPhone.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountPhone.Location = new System.Drawing.Point(6, 100);
+            this.labelAccountPhone.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountPhone.Name = "labelAccountPhone";
+            this.labelAccountPhone.Size = new System.Drawing.Size(110, 19);
+            this.labelAccountPhone.TabIndex = 4;
+            this.labelAccountPhone.Text = "Phone Number:";
+            // 
+            // tbAccountLastname
+            // 
+            this.tbAccountLastname.AnimateReadOnly = false;
+            this.tbAccountLastname.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountLastname.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountLastname.Depth = 0;
+            this.tbAccountLastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountLastname.HideSelection = true;
+            this.tbAccountLastname.LeadingIcon = null;
+            this.tbAccountLastname.Location = new System.Drawing.Point(281, 34);
+            this.tbAccountLastname.MaxLength = 32767;
+            this.tbAccountLastname.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountLastname.Name = "tbAccountLastname";
+            this.tbAccountLastname.PasswordChar = '\0';
+            this.tbAccountLastname.PrefixSuffixText = null;
+            this.tbAccountLastname.ReadOnly = true;
+            this.tbAccountLastname.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountLastname.SelectedText = "";
+            this.tbAccountLastname.SelectionLength = 0;
+            this.tbAccountLastname.SelectionStart = 0;
+            this.tbAccountLastname.ShortcutsEnabled = true;
+            this.tbAccountLastname.Size = new System.Drawing.Size(250, 48);
+            this.tbAccountLastname.TabIndex = 3;
+            this.tbAccountLastname.TabStop = false;
+            this.tbAccountLastname.Text = "Lorem ";
+            this.tbAccountLastname.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountLastname.TrailingIcon = null;
+            this.tbAccountLastname.UseSystemPasswordChar = false;
+            // 
+            // labelAccountLastname
+            // 
+            this.labelAccountLastname.AutoSize = true;
+            this.labelAccountLastname.Depth = 0;
+            this.labelAccountLastname.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountLastname.Location = new System.Drawing.Point(281, 12);
+            this.labelAccountLastname.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountLastname.Name = "labelAccountLastname";
+            this.labelAccountLastname.Size = new System.Drawing.Size(76, 19);
+            this.labelAccountLastname.TabIndex = 2;
+            this.labelAccountLastname.Text = "Lastname:";
+            // 
+            // tbAccountName
+            // 
+            this.tbAccountName.AnimateReadOnly = false;
+            this.tbAccountName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountName.Depth = 0;
+            this.tbAccountName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountName.HideSelection = true;
+            this.tbAccountName.LeadingIcon = null;
+            this.tbAccountName.Location = new System.Drawing.Point(6, 34);
+            this.tbAccountName.MaxLength = 32767;
+            this.tbAccountName.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountName.Name = "tbAccountName";
+            this.tbAccountName.PasswordChar = '\0';
+            this.tbAccountName.PrefixSuffixText = null;
+            this.tbAccountName.ReadOnly = true;
+            this.tbAccountName.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountName.SelectedText = "";
+            this.tbAccountName.SelectionLength = 0;
+            this.tbAccountName.SelectionStart = 0;
+            this.tbAccountName.ShortcutsEnabled = true;
+            this.tbAccountName.Size = new System.Drawing.Size(250, 48);
+            this.tbAccountName.TabIndex = 1;
+            this.tbAccountName.TabStop = false;
+            this.tbAccountName.Text = "Lorem ";
+            this.tbAccountName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountName.TrailingIcon = null;
+            this.tbAccountName.UseSystemPasswordChar = false;
+            // 
+            // labelAccountName
+            // 
+            this.labelAccountName.AutoSize = true;
+            this.labelAccountName.Depth = 0;
+            this.labelAccountName.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountName.Location = new System.Drawing.Point(6, 12);
+            this.labelAccountName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountName.Name = "labelAccountName";
+            this.labelAccountName.Size = new System.Drawing.Size(47, 19);
+            this.labelAccountName.TabIndex = 0;
+            this.labelAccountName.Text = "Name:";
             // 
             // materialTabControl1
             // 
@@ -590,9 +883,46 @@
             this.tabPageProduct.Text = "AddProducts";
             this.tabPageProduct.UseVisualStyleBackColor = true;
             // 
-            // dataImplBindingSource
+            // tbAccountImage
             // 
-            this.dataImplBindingSource.DataSource = typeof(Client.Data.Service.Data_Impl);
+            this.tbAccountImage.AnimateReadOnly = false;
+            this.tbAccountImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountImage.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountImage.Depth = 0;
+            this.tbAccountImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountImage.HideSelection = true;
+            this.tbAccountImage.LeadingIcon = null;
+            this.tbAccountImage.Location = new System.Drawing.Point(8, 446);
+            this.tbAccountImage.MaxLength = 32767;
+            this.tbAccountImage.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountImage.Name = "tbAccountImage";
+            this.tbAccountImage.PasswordChar = '\0';
+            this.tbAccountImage.PrefixSuffixText = null;
+            this.tbAccountImage.ReadOnly = true;
+            this.tbAccountImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountImage.SelectedText = "";
+            this.tbAccountImage.SelectionLength = 0;
+            this.tbAccountImage.SelectionStart = 0;
+            this.tbAccountImage.ShortcutsEnabled = true;
+            this.tbAccountImage.Size = new System.Drawing.Size(504, 48);
+            this.tbAccountImage.TabIndex = 15;
+            this.tbAccountImage.TabStop = false;
+            this.tbAccountImage.Text = "Lorem ";
+            this.tbAccountImage.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountImage.TrailingIcon = null;
+            this.tbAccountImage.UseSystemPasswordChar = false;
+            // 
+            // labelAccountImg
+            // 
+            this.labelAccountImg.AutoSize = true;
+            this.labelAccountImg.Depth = 0;
+            this.labelAccountImg.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountImg.Location = new System.Drawing.Point(8, 421);
+            this.labelAccountImg.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountImg.Name = "labelAccountImg";
+            this.labelAccountImg.Size = new System.Drawing.Size(45, 19);
+            this.labelAccountImg.TabIndex = 14;
+            this.labelAccountImg.Text = "Email:";
             // 
             // Shop
             // 
@@ -610,6 +940,9 @@
             this.tabPageBasket.PerformLayout();
             this.tabPageProducts.ResumeLayout(false);
             this.tabPageProducts.PerformLayout();
+            this.tabPageAccount.ResumeLayout(false);
+            this.tabPageAccount.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAccount)).EndInit();
             this.materialTabControl1.ResumeLayout(false);
             this.tabPageOrders.ResumeLayout(false);
             this.tabPageAdmin.ResumeLayout(false);
@@ -617,7 +950,6 @@
             this.tabPageAddSupply.ResumeLayout(false);
             this.tabPageAddSupply.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataImplBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -652,7 +984,6 @@
         private TabPage tabPageCategories;
         private TabPage tabPageUsers;
         private TabPage tabPageProduct;
-        private BindingSource dataImplBindingSource;
         private DataGridViewTextBoxColumn columnId;
         private DataGridViewTextBoxColumn ColumnProductId;
         private DataGridViewTextBoxColumn columnDate;
@@ -665,5 +996,21 @@
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBox23;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
+        private MaterialSkin.Controls.MaterialLabel labelAccountName;
+        private MaterialSkin.Controls.MaterialButton btAccountSave;
+        private MaterialSkin.Controls.MaterialButton btAccountEdit;
+        private MaterialSkin.Controls.MaterialMultiLineTextBox2 mtbAccountAddress;
+        private MaterialSkin.Controls.MaterialLabel labelAccountAddress;
+        private MaterialSkin.Controls.MaterialTextBox2 tbAccountEmail;
+        private MaterialSkin.Controls.MaterialLabel labelAccountEmail;
+        private MaterialSkin.Controls.MaterialTextBox2 tbAccountPhone;
+        private MaterialSkin.Controls.MaterialLabel labelAccountPhone;
+        private MaterialSkin.Controls.MaterialTextBox2 tbAccountLastname;
+        private MaterialSkin.Controls.MaterialLabel labelAccountLastname;
+        private MaterialSkin.Controls.MaterialTextBox2 tbAccountName;
+        private MaterialSkin.Controls.MaterialLabel labelAccountImage;
+        private PictureBox pbAccount;
+        private MaterialSkin.Controls.MaterialTextBox2 tbAccountImage;
+        private MaterialSkin.Controls.MaterialLabel labelAccountImg;
     }
 }

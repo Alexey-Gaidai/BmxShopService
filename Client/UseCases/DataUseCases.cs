@@ -9,6 +9,8 @@ namespace Client.UseCases
 {
     public interface DataUseCases
     {
+        public Task<string> SaveAccountInfo(string tokenKey, User user);
+        public Task<User> LoadAccountInfo(string tokenKey, int id);
         public Task<T> GetSupplies<T>(string tokenKey);
         public Task<string> UpdateSupplies(string tokenKey, Supplies sup);
         public Task<List<Products>> GetProduct(string tokenKey);

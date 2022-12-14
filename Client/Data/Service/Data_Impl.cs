@@ -18,6 +18,61 @@ namespace Client.Data.Service
 {
     public class Data_Impl : DataUseCases
     {
+        public async Task<string> SaveAccountInfo(string tokenKey, User user)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"api/User/{user.Id}";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.PutAsJsonAsync(url, user);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
+                return message;
+            }
+            catch
+            {
+                MessageBox.Show("Время сеанса истекло, войдите в аккаунт заново.", message);
+                return default;
+            }
+        }
+        public async Task<User> LoadAccountInfo(string tokenKey, int id)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"api/User/{id}";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.GetAsync(url);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
+                var user = JsonConvert.DeserializeObject<User>(data);
+                return user;
+            }
+            catch
+            {
+                MessageBox.Show("Время сеанса истекло, войдите в аккаунт заново.", message);
+                return default;
+            }
+        }
         public async Task<T> GetProduct<T>(string tokenKey, string parameter)
         {
             string data;

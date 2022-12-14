@@ -2,11 +2,14 @@
 using BmxShopService.Models.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace BmxShopService.Controllers
 {
@@ -19,7 +22,7 @@ namespace BmxShopService.Controllers
         }
 
         [HttpPost("/signup")]
-        public async Task<ActionResult<UserLogin>> PostUser(UserClient newUser)
+        public async Task<ActionResult<UserLogin>> PostUser(SignUpInfoClient newUser)
         {
             cryptPassword(newUser.Password, out string hashedPassword, out string salt);
             if(_context.User.Any(u => u.Email == newUser.Email))
@@ -114,6 +117,30 @@ namespace BmxShopService.Controllers
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(Convert.FromBase64String(passwordHash));
+            }
+        }
+
+        protected bool Validation(string? token)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                var key = Encoding.ASCII.GetBytes(AuthOptions.KEY);
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

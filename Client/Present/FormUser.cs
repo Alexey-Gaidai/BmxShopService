@@ -55,11 +55,29 @@ namespace Client.Present
         {
             setOrders();
             setData();
+            setUserInfo();
             this.Text = _AuthInfo.username;
             materialTabControl1.SelectedTab = tabPageProducts;
             if(_AuthInfo.role == "user")
                 materialTabControl1.TabPages.Remove(tabPageAdmin);
         }
+
+        private async void setUserInfo()
+        {
+            var user = await getData.LoadAccountInfo(_AuthInfo.access_token, Convert.ToInt32(_AuthInfo.userId));
+            tbAccountName.Text = user.Name;
+            tbAccountLastname.Text = user.LastName;
+            tbAccountEmail.Text = user.Email;
+            tbAccountPhone.Text = user.Phone;
+            tbAccountImage.Text = user.UserImage;
+            mtbAccountAddress.Text = user.Address;
+            if(user.UserImage == "")
+            {
+                pbAccount.ImageLocation = "C:\\Users\\TheHa\\source\\repos\\BmxShopService\\Client\\Present\\images\\defaultImage.jpg";
+            } else
+                pbAccount.ImageLocation = user.UserImage;
+        }
+
         void child_DataAvailable(object sender, EventArgs e)
         {
             ItemProduct child = sender as ItemProduct;
@@ -254,9 +272,42 @@ namespace Client.Present
             }
         }
 
-        private void materialSlider1_onValueChanged(object sender, int newValue)
+        private void btAccountEdit_Click(object sender, EventArgs e)
         {
-            // TODO: ограничение цены
+            tbAccountName.ReadOnly = false;
+            tbAccountLastname.ReadOnly = false;
+            tbAccountEmail.ReadOnly = false;
+            tbAccountPhone.ReadOnly = false;
+            mtbAccountAddress.ReadOnly = false;
+            tbAccountImage.ReadOnly = false;
+        }
+
+        private async void btAccountSave_Click(object sender, EventArgs e)
+        {
+            tbAccountName.ReadOnly = true;
+            tbAccountLastname.ReadOnly = true;
+            tbAccountEmail.ReadOnly = true;
+            tbAccountPhone.ReadOnly = true;
+            mtbAccountAddress.ReadOnly = true;
+            tbAccountImage.ReadOnly = true;
+            var user = new User
+            {
+                Id = Convert.ToInt32(_AuthInfo.userId),
+                Name = tbAccountName.Text,
+                LastName = tbAccountLastname.Text,
+                Email = tbAccountEmail.Text,
+                Phone = tbAccountPhone.Text,
+                Address = mtbAccountAddress.Text,
+                UserImage = tbAccountImage.Text,
+            };
+            try
+            {
+                var response = await getData.SaveAccountInfo(_AuthInfo.access_token, user);
+            }
+            catch
+            {
+                MaterialMessageBox.Show("Error!!");
+            }
         }
     }
 }

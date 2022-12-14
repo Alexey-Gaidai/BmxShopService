@@ -1,6 +1,6 @@
 ﻿namespace BmxShopService.Models.Client
 {
-    public class UserClient
+    public class SignUpInfoClient
     {
         public string Name { get; set; }
         public string LastName { get; set; }
