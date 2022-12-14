@@ -43,7 +43,7 @@ namespace Client.Present
             try
             {
                 var info = await login.LogIn(materialTextBoxLogin.Text, materialTextBoxPassword.Text);
-                var t = new Thread(() => Application.Run(new Shop(info)));
+                var t = new Thread(() => Application.Run(new Shop(info.Item1)));
                 t.Start();
                 this.Close();
             }

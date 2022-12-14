@@ -125,7 +125,7 @@ namespace BmxShopService.Controllers
 
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteOrders(int id)
         {
             var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();

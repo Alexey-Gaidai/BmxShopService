@@ -13,7 +13,7 @@ namespace Client.UseCases
         public Task<(User, string)> LoadAccountInfo(string tokenKey, int id);
         public Task<(T, string)> GetSupplies<T>(string tokenKey);
         public Task<string> UpdateSupplies(string tokenKey, Supplies sup);
-        public Task<string> CreateOrder(int userId, DateTime date, bool status, string tokenKey);
+        public Task<(string, string)> CreateOrder(int userId, DateTime date, bool status, string tokenKey);
         public Task<string> UpdateOrder(string tokenKey, Order ord);
         public Task<(List<Order>, string)> GetOrders(string tokenKey, string parameter);
         public Task<(T, string)> GetProduct<T>(string tokenKey, string parameter);

@@ -27,7 +27,7 @@ namespace BmxShopService.Controllers
             cryptPassword(newUser.Password, out string hashedPassword, out string salt);
             if(_context.User.Any(u => u.Email == newUser.Email))
             {
-                return StatusCode((int)HttpStatusCode.Conflict, "Email уже используется"); ;
+                return StatusCode((int)HttpStatusCode.Conflict); ;
             }
             var user = new User
             {

@@ -187,12 +187,13 @@ namespace Client.Present
                 var basketitem = new Basket
                 {
                     productId = child.prodData.Id,
+                    productName = child.prodData.productName,
                     productPrice = child.prodData.productPrice,
                     count = 1
                 };
                 basketToOrder.Add(basketitem);
                 sum += basketitem.productPrice;
-                ListViewItem item = new ListViewItem(basketitem.productId.ToString());
+                ListViewItem item = new ListViewItem(basketitem.productName.ToString());
                 item.SubItems.Add(basketitem.productPrice.ToString());
                 item.SubItems.Add(basketitem.count.ToString());
                 materialListView1.Items.Add(item);
@@ -271,9 +272,20 @@ namespace Client.Present
             string response = "";
             try
             {
-                var checkout = await getData.CreateOrder(Convert.ToInt32(_AuthInfo.userId), DateTime.Now, true, _AuthInfo.access_token);
-                var items = await getData.AddOrderItems(_AuthInfo.access_token,itemsToArray(checkout));
-                response = checkout;
+                if(basketToOrder.Count < 1)
+                {
+                    MaterialMessageBox.Show("Нельзя сделать пустой заказ!");
+                } else
+                {
+                    var checkout = await getData.CreateOrder(Convert.ToInt32(_AuthInfo.userId), DateTime.Now, true, _AuthInfo.access_token);
+                    var items = await getData.AddOrderItems(_AuthInfo.access_token, itemsToArray(checkout.Item1));
+                    response = checkout.Item2;
+                    MaterialMessageBox.Show("Заказ успешно оформлен, теперь вы можете перейти на страницу ваших заказов для оплаты", "Заказ оформлен!");
+                }
+                basketToOrder.Clear();
+                materialListView1.Clear();
+                materialLabelTotalPrice.Text = "";
+                setOrders();
             }
             catch (Exception ex)
             {
@@ -287,7 +299,6 @@ namespace Client.Present
                     MaterialMessageBox.Show(ex.Message);
                 }
             }
-            setOrders();
         }
 
         private OrderItems[] itemsToArray(string _orderId)
@@ -318,7 +329,11 @@ namespace Client.Present
                 materialTabControl1.SelectedTab = tabPageProducts;
                 materialTabControl1.SelectedTab.Update();
             }
-            setSupplies();
+            else if (_AuthInfo.role == "admin")
+            {
+                setSupplies();
+            }
+
         }
 
         private void materialFloatingActionButton2_Click(object sender, EventArgs e)
@@ -331,6 +346,7 @@ namespace Client.Present
             string response = "";
             try
             {
+                dataGridViewSupplies.Rows.Clear();
                 var data = await getData.GetSupplies<List<Supplies>>(_AuthInfo.access_token);
                 response = data.Item2;
                 for (int i = 0; i < data.Item1.Count; i++)

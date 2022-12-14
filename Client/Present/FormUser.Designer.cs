@@ -339,9 +339,9 @@
             this.labelAccountImg.Location = new System.Drawing.Point(8, 421);
             this.labelAccountImg.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelAccountImg.Name = "labelAccountImg";
-            this.labelAccountImg.Size = new System.Drawing.Size(45, 19);
+            this.labelAccountImg.Size = new System.Drawing.Size(83, 19);
             this.labelAccountImg.TabIndex = 14;
-            this.labelAccountImg.Text = "Email:";
+            this.labelAccountImg.Text = "Image Link:";
             // 
             // labelAccountImage
             // 

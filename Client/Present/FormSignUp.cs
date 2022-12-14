@@ -37,10 +37,10 @@ namespace Client.Present
             try
             {
                 result = await SignUp.SignUp(materialTextBoxName.Text, materialTextBoxLastname.Text, materialTextBoxEmail.Text, materialTextBoxPhone.Text, materialTextBoxAddress.Text, materialTextBoxPassword.Text);
-                if (MessageBox.Show(result) == DialogResult.OK)
-                {
-                    this.Close();
-                }
+                if (result == "Conflict")
+                    MaterialMessageBox.Show("Указанный email уже используется", "User already exists");
+                else
+                    MaterialMessageBox.Show(result);
             }
             catch(Exception ex)
             {

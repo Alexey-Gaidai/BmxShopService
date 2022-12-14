@@ -189,7 +189,7 @@ namespace Client.Data.Service
             }
         }
 
-        public async Task<string> CreateOrder(int userId, DateTime date, bool status, string tokenKey)
+        public async Task<(string, string)> CreateOrder(int userId, DateTime date, bool status, string tokenKey)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
@@ -219,11 +219,11 @@ namespace Client.Data.Service
                     message = result.StatusCode.ToString();
                     result.EnsureSuccessStatusCode();
                 }
-                return message;
+                return (data,message);
             }
             catch
             {
-                return message;
+                return (default,message);
             }
         }
         public async Task<string> AddOrderItems(string tokenKey, OrderItems[] orderItems)
@@ -321,7 +321,7 @@ namespace Client.Data.Service
         {
             string data;
             var baseAddress = new Uri("https://localhost:7132");
-            string url = $"/api/Deliveries/{sup.id}";
+            string url = $"/api/Supplies/{sup.id}";
             string message = "";
             try
             {

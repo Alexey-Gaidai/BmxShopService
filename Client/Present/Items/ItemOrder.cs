@@ -71,7 +71,7 @@ namespace Client.Present.Items
                 lvItem.SubItems.Add(orderItems.Where(oi => oi.productId == item.Id).Count().ToString());
                 materialListView1.Items.Add(lvItem);
             }
-            materialLabelTotal.Text = $"Total: {sum}$";
+            materialLabelTotal.Text = $"Total: {Math.Round(sum, 2)}$";
             if (Order.status == 0)
             {
                 materialLabelOrderStatus.Text = $"Status: Awaiting payment";
