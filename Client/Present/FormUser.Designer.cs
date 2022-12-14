@@ -43,6 +43,8 @@
             this.materialFloatingActionButton1 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPageAccount = new System.Windows.Forms.TabPage();
+            this.tbAccountImage = new MaterialSkin.Controls.MaterialTextBox2();
+            this.labelAccountImg = new MaterialSkin.Controls.MaterialLabel();
             this.labelAccountImage = new MaterialSkin.Controls.MaterialLabel();
             this.pbAccount = new System.Windows.Forms.PictureBox();
             this.btAccountSave = new MaterialSkin.Controls.MaterialButton();
@@ -81,8 +83,6 @@
             this.tabPageCategories = new System.Windows.Forms.TabPage();
             this.tabPageUsers = new System.Windows.Forms.TabPage();
             this.tabPageProduct = new System.Windows.Forms.TabPage();
-            this.tbAccountImage = new MaterialSkin.Controls.MaterialTextBox2();
-            this.labelAccountImg = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageBasket.SuspendLayout();
             this.tabPageProducts.SuspendLayout();
             this.tabPageAccount.SuspendLayout();
@@ -302,6 +302,47 @@
             this.tabPageAccount.Text = "Account";
             this.tabPageAccount.UseVisualStyleBackColor = true;
             // 
+            // tbAccountImage
+            // 
+            this.tbAccountImage.AnimateReadOnly = false;
+            this.tbAccountImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbAccountImage.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbAccountImage.Depth = 0;
+            this.tbAccountImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbAccountImage.HideSelection = true;
+            this.tbAccountImage.LeadingIcon = null;
+            this.tbAccountImage.Location = new System.Drawing.Point(8, 446);
+            this.tbAccountImage.MaxLength = 32767;
+            this.tbAccountImage.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbAccountImage.Name = "tbAccountImage";
+            this.tbAccountImage.PasswordChar = '\0';
+            this.tbAccountImage.PrefixSuffixText = null;
+            this.tbAccountImage.ReadOnly = true;
+            this.tbAccountImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbAccountImage.SelectedText = "";
+            this.tbAccountImage.SelectionLength = 0;
+            this.tbAccountImage.SelectionStart = 0;
+            this.tbAccountImage.ShortcutsEnabled = true;
+            this.tbAccountImage.Size = new System.Drawing.Size(504, 48);
+            this.tbAccountImage.TabIndex = 15;
+            this.tbAccountImage.TabStop = false;
+            this.tbAccountImage.Text = "Lorem ";
+            this.tbAccountImage.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbAccountImage.TrailingIcon = null;
+            this.tbAccountImage.UseSystemPasswordChar = false;
+            // 
+            // labelAccountImg
+            // 
+            this.labelAccountImg.AutoSize = true;
+            this.labelAccountImg.Depth = 0;
+            this.labelAccountImg.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.labelAccountImg.Location = new System.Drawing.Point(8, 421);
+            this.labelAccountImg.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelAccountImg.Name = "labelAccountImg";
+            this.labelAccountImg.Size = new System.Drawing.Size(45, 19);
+            this.labelAccountImg.TabIndex = 14;
+            this.labelAccountImg.Text = "Email:";
+            // 
             // labelAccountImage
             // 
             this.labelAccountImage.AutoSize = true;
@@ -316,6 +357,7 @@
             // 
             // pbAccount
             // 
+            this.pbAccount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbAccount.Location = new System.Drawing.Point(586, 34);
             this.pbAccount.Name = "pbAccount";
             this.pbAccount.Size = new System.Drawing.Size(336, 364);
@@ -882,47 +924,6 @@
             this.tabPageProduct.TabIndex = 4;
             this.tabPageProduct.Text = "AddProducts";
             this.tabPageProduct.UseVisualStyleBackColor = true;
-            // 
-            // tbAccountImage
-            // 
-            this.tbAccountImage.AnimateReadOnly = false;
-            this.tbAccountImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tbAccountImage.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.tbAccountImage.Depth = 0;
-            this.tbAccountImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.tbAccountImage.HideSelection = true;
-            this.tbAccountImage.LeadingIcon = null;
-            this.tbAccountImage.Location = new System.Drawing.Point(8, 446);
-            this.tbAccountImage.MaxLength = 32767;
-            this.tbAccountImage.MouseState = MaterialSkin.MouseState.OUT;
-            this.tbAccountImage.Name = "tbAccountImage";
-            this.tbAccountImage.PasswordChar = '\0';
-            this.tbAccountImage.PrefixSuffixText = null;
-            this.tbAccountImage.ReadOnly = true;
-            this.tbAccountImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbAccountImage.SelectedText = "";
-            this.tbAccountImage.SelectionLength = 0;
-            this.tbAccountImage.SelectionStart = 0;
-            this.tbAccountImage.ShortcutsEnabled = true;
-            this.tbAccountImage.Size = new System.Drawing.Size(504, 48);
-            this.tbAccountImage.TabIndex = 15;
-            this.tbAccountImage.TabStop = false;
-            this.tbAccountImage.Text = "Lorem ";
-            this.tbAccountImage.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.tbAccountImage.TrailingIcon = null;
-            this.tbAccountImage.UseSystemPasswordChar = false;
-            // 
-            // labelAccountImg
-            // 
-            this.labelAccountImg.AutoSize = true;
-            this.labelAccountImg.Depth = 0;
-            this.labelAccountImg.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.labelAccountImg.Location = new System.Drawing.Point(8, 421);
-            this.labelAccountImg.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelAccountImg.Name = "labelAccountImg";
-            this.labelAccountImg.Size = new System.Drawing.Size(45, 19);
-            this.labelAccountImg.TabIndex = 14;
-            this.labelAccountImg.Text = "Email:";
             // 
             // Shop
             // 

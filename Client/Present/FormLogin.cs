@@ -19,8 +19,8 @@ namespace Client.Present
             };
         public FormLogin()
         {
-            InitMaterialSkin();
             InitializeComponent();
+            InitMaterialSkin();
         }
         private void InitMaterialSkin()
         {
@@ -43,10 +43,9 @@ namespace Client.Present
             try
             {
                 var info = await login.LogIn(materialTextBoxLogin.Text, materialTextBoxPassword.Text);
-                Shop user = new Shop(info);
-                user.Show();
-                this.Hide();
-
+                var t = new Thread(() => Application.Run(new Shop(info)));
+                t.Start();
+                this.Close();
             }
             catch (Exception ex)
             {
