@@ -16,6 +16,58 @@ namespace Client.Data.Service
 {
     public class Data_Impl : DataUseCases
     {
+        public async Task<string> AddProduct(string tokenKey, Products product)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"api/Products";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.PostAsJsonAsync(url, product);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
+                return message;
+            }
+            catch
+            {
+                return message;
+            }
+        }
+        public async Task<string> UpdateProducts(string tokenKey, Products product)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"api/Products/{product.Id}";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.PutAsJsonAsync(url, product);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
+                return message;
+            }
+            catch
+            {
+                return message;
+            }
+        }
         public async Task<string> SaveAccountInfo(string tokenKey, User user)
         {
             string data;
@@ -343,7 +395,33 @@ namespace Client.Data.Service
             {
                 return message;
             }
+        }
+        public async Task<string> AddSupply(string tokenKey, Supplies sup)
+        {
+            string data;
+            var baseAddress = new Uri("https://localhost:7132");
+            string url = $"/api/Supplies/";
+            string message = "";
+            try
+            {
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenKey}");
+                    var result = await client.PostAsJsonAsync(url, sup);
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    Encoding encoding = Encoding.GetEncoding("utf-8");
+                    data = encoding.GetString(bytes, 0, bytes.Length);
+                    message = result.StatusCode.ToString();
+                    result.EnsureSuccessStatusCode();
+                }
 
+                return message;
+            }
+            catch
+            {
+                return message;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using BmxShopService.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using NuGet.Common;
+using BmxShopService.Models.Client;
 
 namespace BmxShopService.Controllers
 {
@@ -63,16 +64,26 @@ namespace BmxShopService.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
+        public async Task<IActionResult> PutProducts(int id, ProductClient product)
         {
             var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            if (Validation(token) != true)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+            var products = new Products
+            {
+                id = product.Id,
+                productName = product.productName,
+                productDescription = product.productDescription,
+                productPrice = product.productPrice,
+                categoryId = product.categoryId,
+                ManufacturerId = product.ManufacturerId,
+                imageLink = product.imageLink,
+            };
             if (id != products.id)
             {
                 return BadRequest();
-            }
-            if(Validation(token) != true)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             _context.Entry(products).State = EntityState.Modified;
@@ -100,13 +111,23 @@ namespace BmxShopService.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult<Products>> PostProducts(Products products)
+        public async Task<ActionResult<Products>> PostProducts(ProductClient product)
         {
             var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             if (Validation(token) != true)
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
+            var products = new Products
+            {
+                id = product.Id,
+                productName = product.productName,
+                productDescription = product.productDescription,
+                productPrice = product.productPrice,
+                categoryId = product.categoryId,
+                ManufacturerId = product.ManufacturerId,
+                imageLink = product.imageLink,
+            };
             _context.Products.Add(products);
             await _context.SaveChangesAsync();
 

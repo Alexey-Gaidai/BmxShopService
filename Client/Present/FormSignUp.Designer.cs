@@ -45,6 +45,7 @@
             this.materialButtonSignUp = new MaterialSkin.Controls.MaterialButton();
             this.materialCheckboxAgree = new MaterialSkin.Controls.MaterialCheckbox();
             this.materialLabelPasswordEquals = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabelPasswordDifference = new MaterialSkin.Controls.MaterialLabel();
             this.SuspendLayout();
             // 
             // materialTextBoxName
@@ -286,8 +287,6 @@
             this.materialTextBoxRepeatPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.materialTextBoxRepeatPassword.TrailingIcon = null;
             this.materialTextBoxRepeatPassword.UseSystemPasswordChar = false;
-            this.materialTextBoxRepeatPassword.Click += new System.EventHandler(this.materialTextBoxRepeatPassword_Click);
-            this.materialTextBoxRepeatPassword.TextChanged += new System.EventHandler(this.materialTextBoxRepeatPassword_TextChanged);
             // 
             // materialLabel7
             // 
@@ -377,11 +376,25 @@
             this.materialLabelPasswordEquals.Size = new System.Drawing.Size(1, 0);
             this.materialLabelPasswordEquals.TabIndex = 31;
             // 
+            // materialLabelPasswordDifference
+            // 
+            this.materialLabelPasswordDifference.AutoSize = true;
+            this.materialLabelPasswordDifference.BackColor = System.Drawing.Color.Transparent;
+            this.materialLabelPasswordDifference.Depth = 0;
+            this.materialLabelPasswordDifference.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelPasswordDifference.ForeColor = System.Drawing.Color.Red;
+            this.materialLabelPasswordDifference.Location = new System.Drawing.Point(274, 292);
+            this.materialLabelPasswordDifference.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelPasswordDifference.Name = "materialLabelPasswordDifference";
+            this.materialLabelPasswordDifference.Size = new System.Drawing.Size(1, 0);
+            this.materialLabelPasswordDifference.TabIndex = 32;
+            // 
             // FormSignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 416);
+            this.Controls.Add(this.materialLabelPasswordDifference);
             this.Controls.Add(this.materialLabelPasswordEquals);
             this.Controls.Add(this.materialCheckboxAgree);
             this.Controls.Add(this.materialButtonSignUp);
@@ -428,5 +441,6 @@
         private MaterialSkin.Controls.MaterialButton materialButtonSignUp;
         private MaterialSkin.Controls.MaterialCheckbox materialCheckboxAgree;
         private MaterialSkin.Controls.MaterialLabel materialLabelPasswordEquals;
+        private MaterialSkin.Controls.MaterialLabel materialLabelPasswordDifference;
     }
 }

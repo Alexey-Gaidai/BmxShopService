@@ -67,22 +67,41 @@
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabPageAddSupply = new System.Windows.Forms.TabPage();
             this.materialButtonAddSupply = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox24 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox23 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox22 = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabelCount = new MaterialSkin.Controls.MaterialLabel();
+            this.tbSupplyCount = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabelSupplyDate = new MaterialSkin.Controls.MaterialLabel();
+            this.tbSupplyDate = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabelSupplyId = new MaterialSkin.Controls.MaterialLabel();
+            this.tbSupplyProductId = new MaterialSkin.Controls.MaterialTextBox2();
             this.dataGridViewSupplies = new System.Windows.Forms.DataGridView();
             this.columnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnApplyChange = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.tabPageManufacturers = new System.Windows.Forms.TabPage();
-            this.tabPageCategories = new System.Windows.Forms.TabPage();
-            this.tabPageUsers = new System.Windows.Forms.TabPage();
             this.tabPageProduct = new System.Windows.Forms.TabPage();
+            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
+            this.tbProductManufacturerId = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.tbProductCategoryId = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabelProductImage = new MaterialSkin.Controls.MaterialLabel();
+            this.tbProductImageLink = new MaterialSkin.Controls.MaterialTextBox2();
+            this.tbProductDescription = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
+            this.materialButtonAddProduct = new MaterialSkin.Controls.MaterialButton();
+            this.materialLabelProductPrice = new MaterialSkin.Controls.MaterialLabel();
+            this.tbProductPrice = new MaterialSkin.Controls.MaterialTextBox2();
+            this.materialLabelProductDesc = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabelProductName = new MaterialSkin.Controls.MaterialLabel();
+            this.tbProductName = new MaterialSkin.Controls.MaterialTextBox2();
+            this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
+            this.dgvProductsId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsCategoryId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsManufacturerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvProductsImage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPageBasket.SuspendLayout();
             this.tabPageProducts.SuspendLayout();
             this.tabPageAccount.SuspendLayout();
@@ -93,6 +112,8 @@
             this.tabControlAdmin.SuspendLayout();
             this.tabPageAddSupply.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).BeginInit();
+            this.tabPageProduct.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPageBasket
@@ -676,9 +697,6 @@
             // tabControlAdmin
             // 
             this.tabControlAdmin.Controls.Add(this.tabPageAddSupply);
-            this.tabControlAdmin.Controls.Add(this.tabPageManufacturers);
-            this.tabControlAdmin.Controls.Add(this.tabPageCategories);
-            this.tabControlAdmin.Controls.Add(this.tabPageUsers);
             this.tabControlAdmin.Controls.Add(this.tabPageProduct);
             this.tabControlAdmin.Location = new System.Drawing.Point(6, 6);
             this.tabControlAdmin.Name = "tabControlAdmin";
@@ -689,12 +707,12 @@
             // tabPageAddSupply
             // 
             this.tabPageAddSupply.Controls.Add(this.materialButtonAddSupply);
-            this.tabPageAddSupply.Controls.Add(this.materialLabel4);
-            this.tabPageAddSupply.Controls.Add(this.materialTextBox24);
-            this.tabPageAddSupply.Controls.Add(this.materialLabel3);
-            this.tabPageAddSupply.Controls.Add(this.materialTextBox23);
-            this.tabPageAddSupply.Controls.Add(this.materialLabel2);
-            this.tabPageAddSupply.Controls.Add(this.materialTextBox22);
+            this.tabPageAddSupply.Controls.Add(this.materialLabelCount);
+            this.tabPageAddSupply.Controls.Add(this.tbSupplyCount);
+            this.tabPageAddSupply.Controls.Add(this.materialLabelSupplyDate);
+            this.tabPageAddSupply.Controls.Add(this.tbSupplyDate);
+            this.tabPageAddSupply.Controls.Add(this.materialLabelSupplyId);
+            this.tabPageAddSupply.Controls.Add(this.tbSupplyProductId);
             this.tabPageAddSupply.Controls.Add(this.dataGridViewSupplies);
             this.tabPageAddSupply.Location = new System.Drawing.Point(4, 24);
             this.tabPageAddSupply.Name = "tabPageAddSupply";
@@ -722,126 +740,127 @@
             this.materialButtonAddSupply.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.materialButtonAddSupply.UseAccentColor = false;
             this.materialButtonAddSupply.UseVisualStyleBackColor = true;
+            this.materialButtonAddSupply.Click += new System.EventHandler(this.materialButtonAddSupply_Click);
             // 
-            // materialLabel4
+            // materialLabelCount
             // 
-            this.materialLabel4.AutoSize = true;
-            this.materialLabel4.Depth = 0;
-            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(543, 128);
-            this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel4.Name = "materialLabel4";
-            this.materialLabel4.Size = new System.Drawing.Size(47, 19);
-            this.materialLabel4.TabIndex = 7;
-            this.materialLabel4.Text = "Count:";
+            this.materialLabelCount.AutoSize = true;
+            this.materialLabelCount.Depth = 0;
+            this.materialLabelCount.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelCount.Location = new System.Drawing.Point(543, 128);
+            this.materialLabelCount.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelCount.Name = "materialLabelCount";
+            this.materialLabelCount.Size = new System.Drawing.Size(47, 19);
+            this.materialLabelCount.TabIndex = 7;
+            this.materialLabelCount.Text = "Count:";
             // 
-            // materialTextBox24
+            // tbSupplyCount
             // 
-            this.materialTextBox24.AnimateReadOnly = false;
-            this.materialTextBox24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox24.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox24.Depth = 0;
-            this.materialTextBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox24.HideSelection = true;
-            this.materialTextBox24.LeadingIcon = null;
-            this.materialTextBox24.Location = new System.Drawing.Point(624, 114);
-            this.materialTextBox24.MaxLength = 32767;
-            this.materialTextBox24.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox24.Name = "materialTextBox24";
-            this.materialTextBox24.PasswordChar = '\0';
-            this.materialTextBox24.PrefixSuffixText = null;
-            this.materialTextBox24.ReadOnly = false;
-            this.materialTextBox24.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox24.SelectedText = "";
-            this.materialTextBox24.SelectionLength = 0;
-            this.materialTextBox24.SelectionStart = 0;
-            this.materialTextBox24.ShortcutsEnabled = true;
-            this.materialTextBox24.Size = new System.Drawing.Size(82, 48);
-            this.materialTextBox24.TabIndex = 6;
-            this.materialTextBox24.TabStop = false;
-            this.materialTextBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox24.TrailingIcon = null;
-            this.materialTextBox24.UseSystemPasswordChar = false;
+            this.tbSupplyCount.AnimateReadOnly = false;
+            this.tbSupplyCount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbSupplyCount.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbSupplyCount.Depth = 0;
+            this.tbSupplyCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbSupplyCount.HideSelection = true;
+            this.tbSupplyCount.LeadingIcon = null;
+            this.tbSupplyCount.Location = new System.Drawing.Point(624, 114);
+            this.tbSupplyCount.MaxLength = 32767;
+            this.tbSupplyCount.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbSupplyCount.Name = "tbSupplyCount";
+            this.tbSupplyCount.PasswordChar = '\0';
+            this.tbSupplyCount.PrefixSuffixText = null;
+            this.tbSupplyCount.ReadOnly = false;
+            this.tbSupplyCount.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbSupplyCount.SelectedText = "";
+            this.tbSupplyCount.SelectionLength = 0;
+            this.tbSupplyCount.SelectionStart = 0;
+            this.tbSupplyCount.ShortcutsEnabled = true;
+            this.tbSupplyCount.Size = new System.Drawing.Size(82, 48);
+            this.tbSupplyCount.TabIndex = 6;
+            this.tbSupplyCount.TabStop = false;
+            this.tbSupplyCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbSupplyCount.TrailingIcon = null;
+            this.tbSupplyCount.UseSystemPasswordChar = false;
             // 
-            // materialLabel3
+            // materialLabelSupplyDate
             // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.Location = new System.Drawing.Point(543, 70);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(38, 19);
-            this.materialLabel3.TabIndex = 5;
-            this.materialLabel3.Text = "Date:";
+            this.materialLabelSupplyDate.AutoSize = true;
+            this.materialLabelSupplyDate.Depth = 0;
+            this.materialLabelSupplyDate.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelSupplyDate.Location = new System.Drawing.Point(543, 70);
+            this.materialLabelSupplyDate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelSupplyDate.Name = "materialLabelSupplyDate";
+            this.materialLabelSupplyDate.Size = new System.Drawing.Size(38, 19);
+            this.materialLabelSupplyDate.TabIndex = 5;
+            this.materialLabelSupplyDate.Text = "Date:";
             // 
-            // materialTextBox23
+            // tbSupplyDate
             // 
-            this.materialTextBox23.AnimateReadOnly = false;
-            this.materialTextBox23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox23.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox23.Depth = 0;
-            this.materialTextBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox23.HideSelection = true;
-            this.materialTextBox23.LeadingIcon = null;
-            this.materialTextBox23.Location = new System.Drawing.Point(624, 60);
-            this.materialTextBox23.MaxLength = 32767;
-            this.materialTextBox23.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox23.Name = "materialTextBox23";
-            this.materialTextBox23.PasswordChar = '\0';
-            this.materialTextBox23.PrefixSuffixText = null;
-            this.materialTextBox23.ReadOnly = false;
-            this.materialTextBox23.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox23.SelectedText = "";
-            this.materialTextBox23.SelectionLength = 0;
-            this.materialTextBox23.SelectionStart = 0;
-            this.materialTextBox23.ShortcutsEnabled = true;
-            this.materialTextBox23.Size = new System.Drawing.Size(188, 48);
-            this.materialTextBox23.TabIndex = 4;
-            this.materialTextBox23.TabStop = false;
-            this.materialTextBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox23.TrailingIcon = null;
-            this.materialTextBox23.UseSystemPasswordChar = false;
+            this.tbSupplyDate.AnimateReadOnly = false;
+            this.tbSupplyDate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbSupplyDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbSupplyDate.Depth = 0;
+            this.tbSupplyDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbSupplyDate.HideSelection = true;
+            this.tbSupplyDate.LeadingIcon = null;
+            this.tbSupplyDate.Location = new System.Drawing.Point(624, 60);
+            this.tbSupplyDate.MaxLength = 32767;
+            this.tbSupplyDate.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbSupplyDate.Name = "tbSupplyDate";
+            this.tbSupplyDate.PasswordChar = '\0';
+            this.tbSupplyDate.PrefixSuffixText = null;
+            this.tbSupplyDate.ReadOnly = false;
+            this.tbSupplyDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbSupplyDate.SelectedText = "";
+            this.tbSupplyDate.SelectionLength = 0;
+            this.tbSupplyDate.SelectionStart = 0;
+            this.tbSupplyDate.ShortcutsEnabled = true;
+            this.tbSupplyDate.Size = new System.Drawing.Size(188, 48);
+            this.tbSupplyDate.TabIndex = 4;
+            this.tbSupplyDate.TabStop = false;
+            this.tbSupplyDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbSupplyDate.TrailingIcon = null;
+            this.tbSupplyDate.UseSystemPasswordChar = false;
             // 
-            // materialLabel2
+            // materialLabelSupplyId
             // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(543, 19);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(75, 19);
-            this.materialLabel2.TabIndex = 3;
-            this.materialLabel2.Text = "ProductID:";
+            this.materialLabelSupplyId.AutoSize = true;
+            this.materialLabelSupplyId.Depth = 0;
+            this.materialLabelSupplyId.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelSupplyId.Location = new System.Drawing.Point(543, 19);
+            this.materialLabelSupplyId.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelSupplyId.Name = "materialLabelSupplyId";
+            this.materialLabelSupplyId.Size = new System.Drawing.Size(75, 19);
+            this.materialLabelSupplyId.TabIndex = 3;
+            this.materialLabelSupplyId.Text = "ProductID:";
             // 
-            // materialTextBox22
+            // tbSupplyProductId
             // 
-            this.materialTextBox22.AnimateReadOnly = false;
-            this.materialTextBox22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox22.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox22.Depth = 0;
-            this.materialTextBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox22.HideSelection = true;
-            this.materialTextBox22.LeadingIcon = null;
-            this.materialTextBox22.Location = new System.Drawing.Point(624, 6);
-            this.materialTextBox22.MaxLength = 32767;
-            this.materialTextBox22.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox22.Name = "materialTextBox22";
-            this.materialTextBox22.PasswordChar = '\0';
-            this.materialTextBox22.PrefixSuffixText = null;
-            this.materialTextBox22.ReadOnly = false;
-            this.materialTextBox22.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox22.SelectedText = "";
-            this.materialTextBox22.SelectionLength = 0;
-            this.materialTextBox22.SelectionStart = 0;
-            this.materialTextBox22.ShortcutsEnabled = true;
-            this.materialTextBox22.Size = new System.Drawing.Size(82, 48);
-            this.materialTextBox22.TabIndex = 2;
-            this.materialTextBox22.TabStop = false;
-            this.materialTextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox22.TrailingIcon = null;
-            this.materialTextBox22.UseSystemPasswordChar = false;
+            this.tbSupplyProductId.AnimateReadOnly = false;
+            this.tbSupplyProductId.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbSupplyProductId.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbSupplyProductId.Depth = 0;
+            this.tbSupplyProductId.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbSupplyProductId.HideSelection = true;
+            this.tbSupplyProductId.LeadingIcon = null;
+            this.tbSupplyProductId.Location = new System.Drawing.Point(624, 6);
+            this.tbSupplyProductId.MaxLength = 32767;
+            this.tbSupplyProductId.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbSupplyProductId.Name = "tbSupplyProductId";
+            this.tbSupplyProductId.PasswordChar = '\0';
+            this.tbSupplyProductId.PrefixSuffixText = null;
+            this.tbSupplyProductId.ReadOnly = false;
+            this.tbSupplyProductId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbSupplyProductId.SelectedText = "";
+            this.tbSupplyProductId.SelectionLength = 0;
+            this.tbSupplyProductId.SelectionStart = 0;
+            this.tbSupplyProductId.ShortcutsEnabled = true;
+            this.tbSupplyProductId.Size = new System.Drawing.Size(82, 48);
+            this.tbSupplyProductId.TabIndex = 2;
+            this.tbSupplyProductId.TabStop = false;
+            this.tbSupplyProductId.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbSupplyProductId.TrailingIcon = null;
+            this.tbSupplyProductId.UseSystemPasswordChar = false;
             // 
             // dataGridViewSupplies
             // 
@@ -888,42 +907,348 @@
             this.ColumnApplyChange.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ColumnApplyChange.Text = "Apply";
             // 
-            // tabPageManufacturers
-            // 
-            this.tabPageManufacturers.Location = new System.Drawing.Point(4, 24);
-            this.tabPageManufacturers.Name = "tabPageManufacturers";
-            this.tabPageManufacturers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageManufacturers.Size = new System.Drawing.Size(954, 457);
-            this.tabPageManufacturers.TabIndex = 1;
-            this.tabPageManufacturers.Text = "Manufacturers";
-            this.tabPageManufacturers.UseVisualStyleBackColor = true;
-            // 
-            // tabPageCategories
-            // 
-            this.tabPageCategories.Location = new System.Drawing.Point(4, 24);
-            this.tabPageCategories.Name = "tabPageCategories";
-            this.tabPageCategories.Size = new System.Drawing.Size(954, 457);
-            this.tabPageCategories.TabIndex = 2;
-            this.tabPageCategories.Text = "Categories";
-            this.tabPageCategories.UseVisualStyleBackColor = true;
-            // 
-            // tabPageUsers
-            // 
-            this.tabPageUsers.Location = new System.Drawing.Point(4, 24);
-            this.tabPageUsers.Name = "tabPageUsers";
-            this.tabPageUsers.Size = new System.Drawing.Size(954, 457);
-            this.tabPageUsers.TabIndex = 3;
-            this.tabPageUsers.Text = "Users";
-            this.tabPageUsers.UseVisualStyleBackColor = true;
-            // 
             // tabPageProduct
             // 
+            this.tabPageProduct.Controls.Add(this.materialLabel3);
+            this.tabPageProduct.Controls.Add(this.tbProductManufacturerId);
+            this.tabPageProduct.Controls.Add(this.materialLabel2);
+            this.tabPageProduct.Controls.Add(this.tbProductCategoryId);
+            this.tabPageProduct.Controls.Add(this.materialLabelProductImage);
+            this.tabPageProduct.Controls.Add(this.tbProductImageLink);
+            this.tabPageProduct.Controls.Add(this.tbProductDescription);
+            this.tabPageProduct.Controls.Add(this.materialButtonAddProduct);
+            this.tabPageProduct.Controls.Add(this.materialLabelProductPrice);
+            this.tabPageProduct.Controls.Add(this.tbProductPrice);
+            this.tabPageProduct.Controls.Add(this.materialLabelProductDesc);
+            this.tabPageProduct.Controls.Add(this.materialLabelProductName);
+            this.tabPageProduct.Controls.Add(this.tbProductName);
+            this.tabPageProduct.Controls.Add(this.dataGridViewProducts);
             this.tabPageProduct.Location = new System.Drawing.Point(4, 24);
             this.tabPageProduct.Name = "tabPageProduct";
             this.tabPageProduct.Size = new System.Drawing.Size(954, 457);
             this.tabPageProduct.TabIndex = 4;
             this.tabPageProduct.Text = "AddProducts";
             this.tabPageProduct.UseVisualStyleBackColor = true;
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel3.Location = new System.Drawing.Point(653, 380);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(110, 19);
+            this.materialLabel3.TabIndex = 23;
+            this.materialLabel3.Text = "ManufacturerId";
+            // 
+            // tbProductManufacturerId
+            // 
+            this.tbProductManufacturerId.AnimateReadOnly = false;
+            this.tbProductManufacturerId.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductManufacturerId.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductManufacturerId.Depth = 0;
+            this.tbProductManufacturerId.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbProductManufacturerId.HideSelection = true;
+            this.tbProductManufacturerId.LeadingIcon = null;
+            this.tbProductManufacturerId.Location = new System.Drawing.Point(769, 362);
+            this.tbProductManufacturerId.MaxLength = 32767;
+            this.tbProductManufacturerId.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductManufacturerId.Name = "tbProductManufacturerId";
+            this.tbProductManufacturerId.PasswordChar = '\0';
+            this.tbProductManufacturerId.PrefixSuffixText = null;
+            this.tbProductManufacturerId.ReadOnly = false;
+            this.tbProductManufacturerId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbProductManufacturerId.SelectedText = "";
+            this.tbProductManufacturerId.SelectionLength = 0;
+            this.tbProductManufacturerId.SelectionStart = 0;
+            this.tbProductManufacturerId.ShortcutsEnabled = true;
+            this.tbProductManufacturerId.Size = new System.Drawing.Size(182, 48);
+            this.tbProductManufacturerId.TabIndex = 22;
+            this.tbProductManufacturerId.TabStop = false;
+            this.tbProductManufacturerId.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductManufacturerId.TrailingIcon = null;
+            this.tbProductManufacturerId.UseSystemPasswordChar = false;
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel2.Location = new System.Drawing.Point(653, 326);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(85, 19);
+            this.materialLabel2.TabIndex = 21;
+            this.materialLabel2.Text = "Category Id:";
+            // 
+            // tbProductCategoryId
+            // 
+            this.tbProductCategoryId.AnimateReadOnly = false;
+            this.tbProductCategoryId.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductCategoryId.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductCategoryId.Depth = 0;
+            this.tbProductCategoryId.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbProductCategoryId.HideSelection = true;
+            this.tbProductCategoryId.LeadingIcon = null;
+            this.tbProductCategoryId.Location = new System.Drawing.Point(744, 308);
+            this.tbProductCategoryId.MaxLength = 32767;
+            this.tbProductCategoryId.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductCategoryId.Name = "tbProductCategoryId";
+            this.tbProductCategoryId.PasswordChar = '\0';
+            this.tbProductCategoryId.PrefixSuffixText = null;
+            this.tbProductCategoryId.ReadOnly = false;
+            this.tbProductCategoryId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbProductCategoryId.SelectedText = "";
+            this.tbProductCategoryId.SelectionLength = 0;
+            this.tbProductCategoryId.SelectionStart = 0;
+            this.tbProductCategoryId.ShortcutsEnabled = true;
+            this.tbProductCategoryId.Size = new System.Drawing.Size(207, 48);
+            this.tbProductCategoryId.TabIndex = 20;
+            this.tbProductCategoryId.TabStop = false;
+            this.tbProductCategoryId.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductCategoryId.TrailingIcon = null;
+            this.tbProductCategoryId.UseSystemPasswordChar = false;
+            // 
+            // materialLabelProductImage
+            // 
+            this.materialLabelProductImage.AutoSize = true;
+            this.materialLabelProductImage.Depth = 0;
+            this.materialLabelProductImage.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelProductImage.Location = new System.Drawing.Point(653, 272);
+            this.materialLabelProductImage.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelProductImage.Name = "materialLabelProductImage";
+            this.materialLabelProductImage.Size = new System.Drawing.Size(49, 19);
+            this.materialLabelProductImage.TabIndex = 19;
+            this.materialLabelProductImage.Text = "Image:";
+            // 
+            // tbProductImageLink
+            // 
+            this.tbProductImageLink.AnimateReadOnly = false;
+            this.tbProductImageLink.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductImageLink.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductImageLink.Depth = 0;
+            this.tbProductImageLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbProductImageLink.HideSelection = true;
+            this.tbProductImageLink.LeadingIcon = null;
+            this.tbProductImageLink.Location = new System.Drawing.Point(708, 254);
+            this.tbProductImageLink.MaxLength = 32767;
+            this.tbProductImageLink.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductImageLink.Name = "tbProductImageLink";
+            this.tbProductImageLink.PasswordChar = '\0';
+            this.tbProductImageLink.PrefixSuffixText = null;
+            this.tbProductImageLink.ReadOnly = false;
+            this.tbProductImageLink.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbProductImageLink.SelectedText = "";
+            this.tbProductImageLink.SelectionLength = 0;
+            this.tbProductImageLink.SelectionStart = 0;
+            this.tbProductImageLink.ShortcutsEnabled = true;
+            this.tbProductImageLink.Size = new System.Drawing.Size(243, 48);
+            this.tbProductImageLink.TabIndex = 18;
+            this.tbProductImageLink.TabStop = false;
+            this.tbProductImageLink.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductImageLink.TrailingIcon = null;
+            this.tbProductImageLink.UseSystemPasswordChar = false;
+            // 
+            // tbProductDescription
+            // 
+            this.tbProductDescription.AnimateReadOnly = false;
+            this.tbProductDescription.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductDescription.Depth = 0;
+            this.tbProductDescription.HideSelection = true;
+            this.tbProductDescription.Location = new System.Drawing.Point(653, 94);
+            this.tbProductDescription.MaxLength = 32767;
+            this.tbProductDescription.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductDescription.Name = "tbProductDescription";
+            this.tbProductDescription.PasswordChar = '\0';
+            this.tbProductDescription.ReadOnly = false;
+            this.tbProductDescription.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.tbProductDescription.SelectedText = "";
+            this.tbProductDescription.SelectionLength = 0;
+            this.tbProductDescription.SelectionStart = 0;
+            this.tbProductDescription.ShortcutsEnabled = true;
+            this.tbProductDescription.Size = new System.Drawing.Size(298, 100);
+            this.tbProductDescription.TabIndex = 17;
+            this.tbProductDescription.TabStop = false;
+            this.tbProductDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductDescription.UseSystemPasswordChar = false;
+            // 
+            // materialButtonAddProduct
+            // 
+            this.materialButtonAddProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButtonAddProduct.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButtonAddProduct.Depth = 0;
+            this.materialButtonAddProduct.HighEmphasis = true;
+            this.materialButtonAddProduct.Icon = null;
+            this.materialButtonAddProduct.Location = new System.Drawing.Point(886, 415);
+            this.materialButtonAddProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButtonAddProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButtonAddProduct.Name = "materialButtonAddProduct";
+            this.materialButtonAddProduct.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButtonAddProduct.Size = new System.Drawing.Size(64, 36);
+            this.materialButtonAddProduct.TabIndex = 16;
+            this.materialButtonAddProduct.Text = "ADD";
+            this.materialButtonAddProduct.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButtonAddProduct.UseAccentColor = false;
+            this.materialButtonAddProduct.UseVisualStyleBackColor = true;
+            this.materialButtonAddProduct.Click += new System.EventHandler(this.materialButtonAddProduct_Click);
+            // 
+            // materialLabelProductPrice
+            // 
+            this.materialLabelProductPrice.AutoSize = true;
+            this.materialLabelProductPrice.Depth = 0;
+            this.materialLabelProductPrice.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelProductPrice.Location = new System.Drawing.Point(653, 218);
+            this.materialLabelProductPrice.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelProductPrice.Name = "materialLabelProductPrice";
+            this.materialLabelProductPrice.Size = new System.Drawing.Size(40, 19);
+            this.materialLabelProductPrice.TabIndex = 15;
+            this.materialLabelProductPrice.Text = "Price:";
+            // 
+            // tbProductPrice
+            // 
+            this.tbProductPrice.AnimateReadOnly = false;
+            this.tbProductPrice.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductPrice.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductPrice.Depth = 0;
+            this.tbProductPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbProductPrice.HideSelection = true;
+            this.tbProductPrice.LeadingIcon = null;
+            this.tbProductPrice.Location = new System.Drawing.Point(699, 200);
+            this.tbProductPrice.MaxLength = 32767;
+            this.tbProductPrice.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductPrice.Name = "tbProductPrice";
+            this.tbProductPrice.PasswordChar = '\0';
+            this.tbProductPrice.PrefixSuffixText = null;
+            this.tbProductPrice.ReadOnly = false;
+            this.tbProductPrice.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbProductPrice.SelectedText = "";
+            this.tbProductPrice.SelectionLength = 0;
+            this.tbProductPrice.SelectionStart = 0;
+            this.tbProductPrice.ShortcutsEnabled = true;
+            this.tbProductPrice.Size = new System.Drawing.Size(252, 48);
+            this.tbProductPrice.TabIndex = 14;
+            this.tbProductPrice.TabStop = false;
+            this.tbProductPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductPrice.TrailingIcon = null;
+            this.tbProductPrice.UseSystemPasswordChar = false;
+            // 
+            // materialLabelProductDesc
+            // 
+            this.materialLabelProductDesc.AutoSize = true;
+            this.materialLabelProductDesc.Depth = 0;
+            this.materialLabelProductDesc.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelProductDesc.Location = new System.Drawing.Point(653, 72);
+            this.materialLabelProductDesc.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelProductDesc.Name = "materialLabelProductDesc";
+            this.materialLabelProductDesc.Size = new System.Drawing.Size(85, 19);
+            this.materialLabelProductDesc.TabIndex = 13;
+            this.materialLabelProductDesc.Text = "Description:";
+            // 
+            // materialLabelProductName
+            // 
+            this.materialLabelProductName.AutoSize = true;
+            this.materialLabelProductName.Depth = 0;
+            this.materialLabelProductName.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelProductName.Location = new System.Drawing.Point(653, 19);
+            this.materialLabelProductName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelProductName.Name = "materialLabelProductName";
+            this.materialLabelProductName.Size = new System.Drawing.Size(47, 19);
+            this.materialLabelProductName.TabIndex = 11;
+            this.materialLabelProductName.Text = "Name:";
+            // 
+            // tbProductName
+            // 
+            this.tbProductName.AnimateReadOnly = false;
+            this.tbProductName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tbProductName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.tbProductName.Depth = 0;
+            this.tbProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.tbProductName.HideSelection = true;
+            this.tbProductName.LeadingIcon = null;
+            this.tbProductName.Location = new System.Drawing.Point(706, 3);
+            this.tbProductName.MaxLength = 32767;
+            this.tbProductName.MouseState = MaterialSkin.MouseState.OUT;
+            this.tbProductName.Name = "tbProductName";
+            this.tbProductName.PasswordChar = '\0';
+            this.tbProductName.PrefixSuffixText = null;
+            this.tbProductName.ReadOnly = false;
+            this.tbProductName.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbProductName.SelectedText = "";
+            this.tbProductName.SelectionLength = 0;
+            this.tbProductName.SelectionStart = 0;
+            this.tbProductName.ShortcutsEnabled = true;
+            this.tbProductName.Size = new System.Drawing.Size(248, 48);
+            this.tbProductName.TabIndex = 10;
+            this.tbProductName.TabStop = false;
+            this.tbProductName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tbProductName.TrailingIcon = null;
+            this.tbProductName.UseSystemPasswordChar = false;
+            // 
+            // dataGridViewProducts
+            // 
+            this.dataGridViewProducts.AllowUserToAddRows = false;
+            this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvProductsId,
+            this.dgvProductsName,
+            this.dgvProductsDescription,
+            this.dgvProductsPrice,
+            this.dgvProductsCategoryId,
+            this.dgvProductsManufacturerId,
+            this.dgvProductsImage,
+            this.dataGridViewButtonColumn3});
+            this.dataGridViewProducts.Location = new System.Drawing.Point(0, 3);
+            this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.RowTemplate.Height = 25;
+            this.dataGridViewProducts.Size = new System.Drawing.Size(644, 454);
+            this.dataGridViewProducts.TabIndex = 9;
+            this.dataGridViewProducts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellContentClick);
+            // 
+            // dgvProductsId
+            // 
+            this.dgvProductsId.HeaderText = "id";
+            this.dgvProductsId.Name = "dgvProductsId";
+            this.dgvProductsId.Width = 60;
+            // 
+            // dgvProductsName
+            // 
+            this.dgvProductsName.HeaderText = "Name";
+            this.dgvProductsName.Name = "dgvProductsName";
+            // 
+            // dgvProductsDescription
+            // 
+            this.dgvProductsDescription.HeaderText = "Discription";
+            this.dgvProductsDescription.Name = "dgvProductsDescription";
+            // 
+            // dgvProductsPrice
+            // 
+            this.dgvProductsPrice.HeaderText = "Price";
+            this.dgvProductsPrice.Name = "dgvProductsPrice";
+            // 
+            // dgvProductsCategoryId
+            // 
+            this.dgvProductsCategoryId.HeaderText = "cId";
+            this.dgvProductsCategoryId.Name = "dgvProductsCategoryId";
+            // 
+            // dgvProductsManufacturerId
+            // 
+            this.dgvProductsManufacturerId.HeaderText = "mId";
+            this.dgvProductsManufacturerId.Name = "dgvProductsManufacturerId";
+            // 
+            // dgvProductsImage
+            // 
+            this.dgvProductsImage.HeaderText = "ImageLink";
+            this.dgvProductsImage.Name = "dgvProductsImage";
+            // 
+            // dataGridViewButtonColumn3
+            // 
+            this.dataGridViewButtonColumn3.HeaderText = "Apply";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn3.Text = "Apply";
             // 
             // Shop
             // 
@@ -951,6 +1276,9 @@
             this.tabPageAddSupply.ResumeLayout(false);
             this.tabPageAddSupply.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).EndInit();
+            this.tabPageProduct.ResumeLayout(false);
+            this.tabPageProduct.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -977,26 +1305,7 @@
         private FlowLayoutPanel flowLayoutPanel2;
         private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton2;
         private TabPage tabPageAdmin;
-        private TabControl tabControlAdmin;
-        private TabPage tabPageAddSupply;
-        private TabPage tabPageManufacturers;
-        private DataGridView dataGridViewSupplies;
         private DataGridViewButtonColumn ColumnApply;
-        private TabPage tabPageCategories;
-        private TabPage tabPageUsers;
-        private TabPage tabPageProduct;
-        private DataGridViewTextBoxColumn columnId;
-        private DataGridViewTextBoxColumn ColumnProductId;
-        private DataGridViewTextBoxColumn columnDate;
-        private DataGridViewTextBoxColumn columnCount;
-        private DataGridViewButtonColumn ColumnApplyChange;
-        private MaterialSkin.Controls.MaterialButton materialButtonAddSupply;
-        private MaterialSkin.Controls.MaterialLabel materialLabel4;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox24;
-        private MaterialSkin.Controls.MaterialLabel materialLabel3;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox23;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
         private MaterialSkin.Controls.MaterialLabel labelAccountName;
         private MaterialSkin.Controls.MaterialButton btAccountSave;
         private MaterialSkin.Controls.MaterialButton btAccountEdit;
@@ -1013,5 +1322,43 @@
         private PictureBox pbAccount;
         private MaterialSkin.Controls.MaterialTextBox2 tbAccountImage;
         private MaterialSkin.Controls.MaterialLabel labelAccountImg;
+        private TabControl tabControlAdmin;
+        private TabPage tabPageAddSupply;
+        private MaterialSkin.Controls.MaterialButton materialButtonAddSupply;
+        private MaterialSkin.Controls.MaterialLabel materialLabelCount;
+        private MaterialSkin.Controls.MaterialTextBox2 tbSupplyCount;
+        private MaterialSkin.Controls.MaterialLabel materialLabelSupplyDate;
+        private MaterialSkin.Controls.MaterialTextBox2 tbSupplyDate;
+        private MaterialSkin.Controls.MaterialLabel materialLabelSupplyId;
+        private MaterialSkin.Controls.MaterialTextBox2 tbSupplyProductId;
+        private DataGridView dataGridViewSupplies;
+        private DataGridViewTextBoxColumn columnId;
+        private DataGridViewTextBoxColumn ColumnProductId;
+        private DataGridViewTextBoxColumn columnDate;
+        private DataGridViewTextBoxColumn columnCount;
+        private DataGridViewButtonColumn ColumnApplyChange;
+        private TabPage tabPageProduct;
+        private MaterialSkin.Controls.MaterialButton materialButtonAddProduct;
+        private MaterialSkin.Controls.MaterialLabel materialLabelProductPrice;
+        private MaterialSkin.Controls.MaterialTextBox2 tbProductPrice;
+        private MaterialSkin.Controls.MaterialLabel materialLabelProductDesc;
+        private MaterialSkin.Controls.MaterialLabel materialLabelProductName;
+        private MaterialSkin.Controls.MaterialTextBox2 tbProductName;
+        private DataGridView dataGridViewProducts;
+        private MaterialSkin.Controls.MaterialMultiLineTextBox2 tbProductDescription;
+        private MaterialSkin.Controls.MaterialLabel materialLabelProductImage;
+        private MaterialSkin.Controls.MaterialTextBox2 tbProductImageLink;
+        private MaterialSkin.Controls.MaterialLabel materialLabel3;
+        private MaterialSkin.Controls.MaterialTextBox2 tbProductManufacturerId;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialTextBox2 tbProductCategoryId;
+        private DataGridViewTextBoxColumn dgvProductsId;
+        private DataGridViewTextBoxColumn dgvProductsName;
+        private DataGridViewTextBoxColumn dgvProductsDescription;
+        private DataGridViewTextBoxColumn dgvProductsPrice;
+        private DataGridViewTextBoxColumn dgvProductsCategoryId;
+        private DataGridViewTextBoxColumn dgvProductsManufacturerId;
+        private DataGridViewTextBoxColumn dgvProductsImage;
+        private DataGridViewButtonColumn dataGridViewButtonColumn3;
     }
 }

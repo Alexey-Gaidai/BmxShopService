@@ -36,26 +36,25 @@ namespace Client.Present
             string result = "";
             try
             {
-                result = await SignUp.SignUp(materialTextBoxName.Text, materialTextBoxLastname.Text, materialTextBoxEmail.Text, materialTextBoxPhone.Text, materialTextBoxAddress.Text, materialTextBoxPassword.Text);
-                if (result == "Conflict")
-                    MaterialMessageBox.Show("Указанный email уже используется", "User already exists");
-                else
-                    MaterialMessageBox.Show(result);
+                if(materialTextBoxName.Text == "" || materialTextBoxLastname.Text == "" || materialTextBoxEmail.Text == "" || materialTextBoxPhone.Text == "" || materialTextBoxAddress.Text == "" || materialTextBoxPassword.Text == "")
+                {
+                    MaterialMessageBox.Show("Выдолжны заполнить все поля");
+                } else if (materialTextBoxPassword.Text == materialTextBoxRepeatPassword.Text && materialCheckboxAgree.Checked == true)
+                {
+                    result = await SignUp.SignUp(materialTextBoxName.Text, materialTextBoxLastname.Text, materialTextBoxEmail.Text, materialTextBoxPhone.Text, materialTextBoxAddress.Text, materialTextBoxPassword.Text);
+                    if (result == "Conflict")
+                        MaterialMessageBox.Show("Указанный email уже используется", "User already exists");
+                    else
+                        MaterialMessageBox.Show(result);
+                } else
+                {
+                    MaterialMessageBox.Show("Пароли не совпадают, либо вы не приняли соглашение.");
+                }
             }
             catch(Exception ex)
             {
                 MaterialMessageBox.Show(ex.ToString());
             }
-        }
-
-
-        private void materialTextBoxRepeatPassword_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void materialTextBoxRepeatPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

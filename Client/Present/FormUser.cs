@@ -54,8 +54,9 @@ namespace Client.Present
         private void FormUser_Load(object sender, EventArgs e)
         {
             setOrders();
-            setData();
+            setProducts();
             setUserInfo();
+            setProductsAdmin();
             this.Text = _AuthInfo.username;
             materialTabControl1.SelectedTab = tabPageProducts;
             if(_AuthInfo.role == "user")
@@ -200,7 +201,7 @@ namespace Client.Present
             }
         }
 
-        private async void setData()
+        private async void setProducts()
         {
             string response = "";
             try
@@ -318,7 +319,7 @@ namespace Client.Present
 
         private async void materialFloatingActionButton1_Click(object sender, EventArgs e)
         {
-            setData();
+            setProducts();
         }
 
         private void materialTabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -356,6 +357,40 @@ namespace Client.Present
                     dataGridViewSupplies.Rows[i].Cells["ColumnProductId"].Value = data.Item1[i].productsId;
                     dataGridViewSupplies.Rows[i].Cells["columnDate"].Value = data.Item1[i].deliveryDate;
                     dataGridViewSupplies.Rows[i].Cells["columnCount"].Value = data.Item1[i].productCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (response == "Forbidden")
+                {
+                    MaterialMessageBox.Show("Время сеанса истекло. Зайдите в аккаунт заново", response);
+                    reLogin();
+                }
+                else
+                {
+                    MaterialMessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private async void setProductsAdmin()
+        {
+            string response = "";
+            try
+            {
+                dataGridViewProducts.Rows.Clear();
+                var data = await getData.GetProduct<List<Products>>(_AuthInfo.access_token, "");
+                response = data.Item2;
+                for (int i = 0; i < data.Item1.Count; i++)
+                {
+                    dataGridViewProducts.Rows.Add();
+                    dataGridViewProducts.Rows[i].Cells[0].Value = data.Item1[i].Id;
+                    dataGridViewProducts.Rows[i].Cells[1].Value = data.Item1[i].productName;
+                    dataGridViewProducts.Rows[i].Cells[2].Value = data.Item1[i].productDescription;
+                    dataGridViewProducts.Rows[i].Cells[3].Value = data.Item1[i].productPrice;
+                    dataGridViewProducts.Rows[i].Cells[4].Value = data.Item1[i].categoryId;
+                    dataGridViewProducts.Rows[i].Cells[5].Value = data.Item1[i].ManufacturerId;
+                    dataGridViewProducts.Rows[i].Cells[6].Value = data.Item1[i].imageLink;
                 }
             }
             catch (Exception ex)
@@ -449,6 +484,120 @@ namespace Client.Present
                 }
             }
             setUserInfo();
+        }
+
+        private async void materialButtonAddSupply_Click(object sender, EventArgs e)
+        {
+            string response = "";
+            try
+            {
+                if (tbSupplyCount.Text != "" && tbSupplyDate.Text != "" && tbSupplyProductId.Text != "")
+                {
+                    var newSupply = new Supplies
+                    {
+                        productsId = Convert.ToInt32(tbSupplyProductId.Text),
+                        productCount = Convert.ToInt32(tbSupplyCount.Text),
+                        deliveryDate = tbSupplyDate.Text
+                    };
+                    response = await getData.AddSupply(_AuthInfo.access_token, newSupply);
+                    setSupplies();
+                }
+                else
+                {
+                    MaterialMessageBox.Show("Заполните все поля!");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (response == "Forbidden")
+                {
+                    MaterialMessageBox.Show("Время сеанса истекло. Зайдите в аккаунт заново", response);
+                    reLogin();
+                }
+                else
+                {
+                    MaterialMessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private async void materialButtonAddProduct_Click(object sender, EventArgs e)
+        {
+            string response = "";
+            try
+            {
+                if (tbProductName.Text != "" && tbProductDescription.Text != "" && tbProductPrice.Text != "" && tbProductCategoryId.Text != "" && tbProductManufacturerId.Text != ""&&tbProductImageLink.Text != "")
+                {
+                    var newProduct = new Products
+                    {
+                        productName = tbProductName.Text,
+                        productDescription = tbProductDescription.Text,
+                        productPrice = float.Parse(tbProductPrice.Text),
+                        ManufacturerId = Convert.ToInt32(tbProductManufacturerId.Text),
+                        categoryId = Convert.ToInt32(tbProductCategoryId.Text),
+                        imageLink = tbProductImageLink.Text,
+                    };
+                    response = await getData.AddProduct(_AuthInfo.access_token, newProduct);
+                    tbProductName.Text = "";
+                    tbProductDescription.Text = "";
+                    tbProductPrice.Text = "";
+                    tbProductManufacturerId.Text = "";
+                    tbProductCategoryId.Text = "";
+                    tbProductImageLink.Text = "";
+                    setProducts();
+                    setProductsAdmin();
+                }
+                else
+                {
+                    MaterialMessageBox.Show("Заполните все поля!");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (response == "Forbidden")
+                {
+                    MaterialMessageBox.Show("Время сеанса истекло. Зайдите в аккаунт заново", response);
+                    reLogin();
+                }
+                else
+                {
+                    MaterialMessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private async void dataGridViewProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string response = "";
+            if (e.ColumnIndex == 7 && e.RowIndex > -1 && dataGridViewProducts.Rows[e.RowIndex].Cells[0].Value != null)
+            {
+                try
+                {
+                    var edited = new Products
+                    {
+                        Id = Convert.ToInt32(dataGridViewProducts.Rows[e.RowIndex].Cells[0].Value),
+                        productName = dataGridViewProducts.Rows[e.RowIndex].Cells[1].Value.ToString(),
+                        productDescription = dataGridViewProducts.Rows[e.RowIndex].Cells[2].Value.ToString(),
+                        productPrice = (float)Math.Round(Convert.ToDouble(dataGridViewProducts.Rows[e.RowIndex].Cells[3].Value),2),
+                        categoryId = Convert.ToInt32(dataGridViewProducts.Rows[e.RowIndex].Cells[4].Value),
+                        ManufacturerId = Convert.ToInt32(dataGridViewProducts.Rows[e.RowIndex].Cells[5].Value),
+                        imageLink = dataGridViewProducts.Rows[e.RowIndex].Cells[6].Value.ToString(),
+                    };
+                    response = await getData.UpdateProducts(_AuthInfo.access_token, edited);
+                }
+                catch (Exception ex)
+                {
+                    if (response == "Forbidden")
+                    {
+                        MaterialMessageBox.Show("Время сеанса истекло. Зайдите в аккаунт заново", response);
+                        reLogin();
+                    }
+                    else
+                    {
+                        MaterialMessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

@@ -101,20 +101,26 @@ namespace BmxShopService.Controllers
                 }
             }
 
-            return StatusCode((int)HttpStatusCode.OK, "Время сеанса вышло. Зайдите в аккаунт заново."); ;
+            return StatusCode((int)HttpStatusCode.OK); ;
         }
 
         // POST: api/Deliveries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<Deliveries>> PostDeliveries(Deliveries deliveries)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<Deliveries>> PostDeliveries(Supplies sup)
         {
             var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             if (Validation(token) != true)
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
+            var deliveries = new Deliveries
+            {
+                productsId = sup.productsId,
+                deliveryDate = sup.deliveryDate,
+                productCount = sup.productCount,
+            };
             _context.Deliveries.Add(deliveries);
             await _context.SaveChangesAsync();
 
